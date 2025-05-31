@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Ticket({type}) {
+function Ticket({type, number}) {
   const [currentDay, setCurrentDay] = useState(null);
 
   useEffect(() => {
@@ -26,11 +26,14 @@ function Ticket({type}) {
       طبيب اخصائي
       </p>
       <div className="flex justify-between self-stretch">
-        <p>
+        <p className="text-lg">
           {currentDay}
         </p>
-        <p>
+        <p className="text-lg">
           {`${type}`}
+        </p>
+        <p className="text-lg font-bold">
+          {`${number}`}
         </p>
       </div>
     </div>
