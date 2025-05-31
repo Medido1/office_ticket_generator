@@ -1,4 +1,4 @@
-function Form({changeType, setNumber, setName}) {
+function Form({changeType, setNumber, setName, setTotalPrice}) {
   return (
     <form className="w-[40%] bg-blue-200 p-4">
       <div className="flex gap-4 mb-4">
@@ -35,6 +35,20 @@ function Form({changeType, setNumber, setName}) {
             focus:ring-2 focus:ring-blue-400"
           type="text" id="text"
         />
+      </div>
+      <div className="flex gap-4  items-center mt-4">
+        <label htmlFor="totalPrice">
+          Prix Total
+        </label>
+        <select  
+          onChange = {(e) => setTotalPrice(e.target.value)}
+          id="totalPrice"
+          className="bg-white">
+            <option value="2500">2500</option>
+            <option value="2000">2000</option>
+            <option value="1500">1500</option>
+            <option value="1000">1000</option>
+        </select>
       </div>
     </form>
   )

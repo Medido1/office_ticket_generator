@@ -5,6 +5,7 @@ const initialState = {
   type: "Anapath",
   number: "",
   name: "",
+  totalPrice: "",
 }
 
 export const GlobalContext = createContext(initialState);
@@ -33,12 +34,20 @@ export const GlobalProvider = ({children}) => {
     })
   }
 
+  function setTotalPrice (totalPrice) {
+    dispatch({
+      type: "Set_totalPrice",
+      payload: totalPrice
+    })
+  }
+
   return (
     <GlobalContext.Provider value = {{
       state,
       changeType,
       setNumber,
-      setName
+      setName,
+      setTotalPrice
     }}>
       {children}
     </GlobalContext.Provider>

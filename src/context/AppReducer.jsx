@@ -15,6 +15,11 @@ export default (state, action) => {
         ...state,
         name: action.payload
       }
+    case "Set_totalPrice":
+      return {
+        ...state,
+        totalPrice : action.payload
+      }
     default:
       return state;
   }
