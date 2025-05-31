@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Ticket({type, number, name, totalPrice}) {
+function Ticket({type, number, name, totalPrice, payedSum}) {
   const [currentDay, setCurrentDay] = useState(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function Ticket({type, number, name, totalPrice}) {
           {`${number}`}
         </p>
       </div>
-      <p className="text-xl text-center mt-4">
+      <p className="text-2xl text-center my-4 font-bold ">
           {`${name}`}
       </p>
       <div className="self-start flex gap-4">
@@ -45,6 +45,14 @@ function Ticket({type, number, name, totalPrice}) {
         </p>
         <p>
           {`${totalPrice}`}DA
+        </p>
+      </div>
+      <div className="self-start flex gap-4">
+        <p>
+          Prix Payée:
+        </p>
+        <p>
+          {`${payedSum}`}DA
         </p>
       </div>
     </div>

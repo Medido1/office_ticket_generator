@@ -9,7 +9,8 @@ function Main() {
     changeType, 
     setNumber, 
     setName,
-    setTotalPrice} = useContext(GlobalContext)
+    setTotalPrice,
+    setPayedSum} = useContext(GlobalContext)
   return (
     <main className="p-4 flex gap-4 bg-gray-200">
       <Form 
@@ -17,12 +18,14 @@ function Main() {
         setNumber = {setNumber}
         setName = {setName}
         setTotalPrice = {setTotalPrice}
+        setPayedSum = {setPayedSum}
       />
       <Ticket
         type ={state.type}
         number = {state.number}
         name = {state.name}
         totalPrice = {state.totalPrice}
+        payedSum = {state.payedSum}
       />
     </main>
   )

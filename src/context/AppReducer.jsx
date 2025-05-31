@@ -1,5 +1,3 @@
-import { act } from "react";
-
 const priceMap = {
   "anapath": 2000,
   "Cytoponction": 1500,
@@ -28,6 +26,11 @@ export default (state, action) => {
       return {
         ...state,
         totalPrice : action.payload
+      }
+    case "Set_payedSum":
+      return {
+        ...state,
+        payedSum : action.payload
       }
     default:
       return state;

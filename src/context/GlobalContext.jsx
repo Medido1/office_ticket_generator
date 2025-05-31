@@ -6,6 +6,7 @@ const initialState = {
   number: "",
   name: "",
   totalPrice: "",
+  payedSum: "",
 }
 
 export const GlobalContext = createContext(initialState);
@@ -41,13 +42,21 @@ export const GlobalProvider = ({children}) => {
     })
   }
 
+  function setPayedSum (payedSum) {
+    dispatch ({
+      type: "Set_payedSum",
+      payload: payedSum
+    })
+  }
+
   return (
     <GlobalContext.Provider value = {{
       state,
       changeType,
       setNumber,
       setName,
-      setTotalPrice
+      setTotalPrice,
+      setPayedSum
     }}>
       {children}
     </GlobalContext.Provider>
