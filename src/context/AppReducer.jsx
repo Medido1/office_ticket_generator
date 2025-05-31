@@ -1,9 +1,18 @@
+import { act } from "react";
+
+const priceMap = {
+  "anapath": 2000,
+  "Cytoponction": 1500,
+  "fcv": 1000
+}
+
 export default (state, action) => {
   switch(action.type) {
     case "Change_type":
       return {
         ...state,
-        type: action.payload
+        type: action.payload,
+        totalPrice: priceMap[action.payload] || "",
       };
     case "Set_number":
       return {
