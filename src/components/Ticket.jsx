@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Ticket({type, number}) {
+function Ticket({type, number, name}) {
   const [currentDay, setCurrentDay] = useState(null);
 
   useEffect(() => {
@@ -36,6 +36,9 @@ function Ticket({type, number}) {
           {`${number}`}
         </p>
       </div>
+      <p className="text-xl text-center mt-4">
+          {`${name}`}
+      </p>
     </div>
   )
 }

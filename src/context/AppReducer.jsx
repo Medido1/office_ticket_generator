@@ -10,6 +10,11 @@ export default (state, action) => {
         ...state,
         number: action.payload
       }
+    case "Set_name":
+      return {
+        ...state,
+        name: action.payload
+      }
     default:
       return state;
   }

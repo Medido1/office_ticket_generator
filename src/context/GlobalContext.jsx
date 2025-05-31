@@ -4,6 +4,7 @@ import AppReducer from "./AppReducer";
 const initialState = {
   type: "Anapath",
   number: "",
+  name: "",
 }
 
 export const GlobalContext = createContext(initialState);
@@ -24,11 +25,20 @@ export const GlobalProvider = ({children}) => {
       payload: number
     })
   }
+
+  function setName (name) {
+    dispatch({
+      type: "Set_name",
+      payload: name
+    })
+  }
+
   return (
     <GlobalContext.Provider value = {{
       state,
       changeType,
-      setNumber
+      setNumber,
+      setName
     }}>
       {children}
     </GlobalContext.Provider>
