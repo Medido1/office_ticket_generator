@@ -8,33 +8,33 @@ const priceMap = {
 
 export default (state, action) => {
   switch(action.type) {
-    case "Change_type":
+    case "CHANGE_TYPE":
       return {
         ...state,
         type: action.payload,
         totalPrice: priceMap[action.payload] || "",
       };
-    case "Set_number":
+    case "SET_NUMBER":
       return {
         ...state,
         number: action.payload
       }
-    case "Set_name":
+    case "SET_NAME":
       return {
         ...state,
         name: action.payload
       }
-    case "Set_totalPrice":
+    case "SET_TOTALPRICE":
       return {
         ...state,
         totalPrice : action.payload
       }
-    case "Set_payedSum":
+    case "SET_PAYEDSUM":
       return {
         ...state,
         payedSum : action.payload
       }
-    case "Reset_State":
+    case "RESET_STATE":
       return {...initialState}
     default:
       return state;

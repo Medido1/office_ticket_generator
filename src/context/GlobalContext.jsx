@@ -1,4 +1,4 @@
-import { children, createContext, useReducer } from "react";
+import {createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 
 export const initialState = {
@@ -16,41 +16,30 @@ export const GlobalProvider = ({children}) => {
 
   function changeType (type) {
     dispatch({
-      type: "Change_type",
-      payload: type, 
-    })
+      type: "CHANGE_TYPE", payload: type, })
   }
 
   function setNumber (number) {
     dispatch({
-      type: "Set_number",
-      payload: number
-    })
+      type: "SET_NUMBER", payload: number})
   }
 
   function setName (name) {
     dispatch({
-      type: "Set_name",
-      payload: name
-    })
+      type: "SET_NAME", payload: name})
   }
 
   function setTotalPrice (totalPrice) {
-    dispatch({
-      type: "Set_totalPrice",
-      payload: totalPrice
-    })
+    dispatch({type: "SET_TOTALPRICE", payload: totalPrice})
   }
 
   function setPayedSum (payedSum) {
     dispatch ({
-      type: "Set_payedSum",
-      payload: payedSum
-    })
+      type: "SET_PAYEDSUM", payload: payedSum})
   }
 
   function resetState() {
-    dispatch({type:"Reset_State"})
+    dispatch({type:"RESET_STATE"})
   }
 
   return (
