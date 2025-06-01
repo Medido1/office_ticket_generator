@@ -21,7 +21,7 @@ function Main() {
         setTotalPrice = {setTotalPrice}
         setPayedSum = {setPayedSum}
         resetState = {resetState}
-        totalPrice = {state.totalPrice}
+        state = {state}
       />
       <Ticket
         type ={state.type}
