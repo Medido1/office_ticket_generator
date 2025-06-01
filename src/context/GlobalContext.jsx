@@ -30,12 +30,12 @@ export const GlobalProvider = ({children}) => {
   }
 
   function setTotalPrice (totalPrice) {
-    dispatch({type: "SET_TOTALPRICE", payload: totalPrice})
+    dispatch({type: "SET_TOTAL_PRICE", payload: totalPrice})
   }
 
   function setPayedSum (payedSum) {
     dispatch ({
-      type: "SET_PAYEDSUM", payload: payedSum})
+      type: "SET_PAYED_SUM", payload: payedSum})
   }
 
   function resetState() {

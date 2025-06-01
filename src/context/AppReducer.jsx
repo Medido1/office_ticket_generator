@@ -24,12 +24,12 @@ export default (state, action) => {
         ...state,
         name: action.payload
       }
-    case "SET_TOTALPRICE":
+    case "SET_TOTAL_PRICE":
       return {
         ...state,
         totalPrice : action.payload
       }
-    case "SET_PAYEDSUM":
+    case "SET_PAYED_SUM":
       return {
         ...state,
         payedSum : action.payload
