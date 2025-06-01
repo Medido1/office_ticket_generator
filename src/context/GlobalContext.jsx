@@ -1,8 +1,8 @@
 import { children, createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 
-const initialState = {
-  type: "Anapath",
+export const initialState = {
+  type: "",
   number: "",
   name: "",
   totalPrice: "",
@@ -49,6 +49,10 @@ export const GlobalProvider = ({children}) => {
     })
   }
 
+  function resetState() {
+    dispatch({type:"Reset_State"})
+  }
+
   return (
     <GlobalContext.Provider value = {{
       state,
@@ -56,7 +60,8 @@ export const GlobalProvider = ({children}) => {
       setNumber,
       setName,
       setTotalPrice,
-      setPayedSum
+      setPayedSum,
+      resetState
     }}>
       {children}
     </GlobalContext.Provider>

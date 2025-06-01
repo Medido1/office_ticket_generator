@@ -29,7 +29,7 @@ function Ticket({type, number, name, totalPrice, payedSum}) {
         <p className="text-lg">
           {currentDay}
         </p>
-        <p className="text-lg">
+        <p className="text-xl">
           {`${type}`}
         </p>
         <p className="text-lg font-bold">
@@ -53,6 +53,14 @@ function Ticket({type, number, name, totalPrice, payedSum}) {
         </p>
         <p>
           {`${payedSum}`}DA
+        </p>
+      </div>
+      <div className="self-start flex items-center gap-4">
+        <p>
+          Reste a payer:
+        </p>
+        <p className="font-bold text-xl">
+          {`${totalPrice - payedSum}DA`}
         </p>
       </div>
     </div>

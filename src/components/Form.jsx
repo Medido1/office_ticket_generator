@@ -1,4 +1,5 @@
-function Form({changeType, setNumber, setName, setTotalPrice, setPayedSum}) {
+function Form({changeType, setNumber, setName,
+   setTotalPrice, setPayedSum,resetState, totalPrice}) {
   return (
     <form className="w-[40%] bg-blue-200 p-4">
       <div className="flex gap-4 mb-4">
@@ -8,10 +9,12 @@ function Form({changeType, setNumber, setName, setTotalPrice, setPayedSum}) {
         <select 
           onChange = {(e) => changeType(e.target.value)}
           id="type"
-          className="bg-white">
-          <option value="anapath">Anapath</option>
+          className="bg-white"
+        >
+          <option value="">select</option>
+          <option value="Anapath">Anapath</option>
           <option value="Cytoponction">Cytoponction</option>
-          <option value="fcv">FCV</option>
+          <option value="F.C.V">FCV</option>
         </select>
       </div>
       <div className="flex gap-4 items-center mb-4">
@@ -33,7 +36,7 @@ function Form({changeType, setNumber, setName, setTotalPrice, setPayedSum}) {
           onChange={(e) => setName(e.target.value)} 
           className="bg-white w-[35%] p-2 rounded border-grey-300 focus:outline-none
             focus:ring-2 focus:ring-blue-400"
-          type="text" id="text"
+          type="text" id="name" autoComplete="off"
         />
       </div>
       <div className="flex gap-4  items-center mt-4">
@@ -41,9 +44,10 @@ function Form({changeType, setNumber, setName, setTotalPrice, setPayedSum}) {
           Prix Total :
         </label>
         <select  
-          onChange = {(e) => setTotalPrice(e.target.value)}
+          onChange = {(e) => setTotalPrice(Number(e.target.value))}
           id="totalPrice"
-          className="bg-white p-2">
+          className="bg-white p-2"
+          value={totalPrice}>
             <option value="2500">2500</option>
             <option value="2000">2000</option>
             <option value="1500">1500</option>
@@ -55,12 +59,18 @@ function Form({changeType, setNumber, setName, setTotalPrice, setPayedSum}) {
           Prix payée :
         </label>
         <input
-          onChange={(e) => setPayedSum(e.target.value)} 
+          onChange={(e) => setPayedSum(Number(e.target.value))} 
           className="bg-white w-[35%] p-2 rounded border-grey-300 focus:outline-none
             focus:ring-2 focus:ring-blue-400"
           type="number" id="payedSum"
         />
       </div>
+      <button 
+        onClick={resetState}
+        className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
+        hover:scale-125 transition delay-150">
+        Reset
+      </button>
     </form>
   )
 }

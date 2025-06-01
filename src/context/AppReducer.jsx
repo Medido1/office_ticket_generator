@@ -1,7 +1,9 @@
+import {initialState} from "./GlobalContext";
+
 const priceMap = {
-  "anapath": 2000,
+  "Anapath": 2000,
   "Cytoponction": 1500,
-  "fcv": 1000
+  "F.C.V": 1000
 }
 
 export default (state, action) => {
@@ -32,6 +34,8 @@ export default (state, action) => {
         ...state,
         payedSum : action.payload
       }
+    case "Reset_State":
+      return {...initialState}
     default:
       return state;
   }
