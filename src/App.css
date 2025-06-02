@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@media print {
+  .print-ticket {
+    width: 80mm;
+    margin: 0 auto;
+    page-break-inside: avoid;
+  }
+}
