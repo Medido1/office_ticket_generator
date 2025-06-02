@@ -1,4 +1,6 @@
-function Ticket({type, number, name, totalPrice, payedSum}) {
+import { forwardRef } from "react";
+
+const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
   const currentDay = new Date().toLocaleDateString(`fr-FR`, {
     year: `numeric`,
     month: `long`,
@@ -6,7 +8,9 @@ function Ticket({type, number, name, totalPrice, payedSum}) {
   })
 
   return (
-    <div className="bg-white p-4 flex flex-col gap-2 items-center rounded-md shadow-md">
+    <div 
+      ref={ref}
+      className="bg-white p-4 flex flex-col gap-2 items-center rounded-md shadow-md">
       <h1>
         Laboratoire D'analyse Médical Dr Gherib
       </h1>
@@ -56,6 +60,6 @@ function Ticket({type, number, name, totalPrice, payedSum}) {
       </div>
     </div>
   )
-}
+})
 
 export default Ticket;

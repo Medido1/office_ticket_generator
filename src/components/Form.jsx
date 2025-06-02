@@ -1,5 +1,5 @@
 function Form({changeType, setNumber, setName,
-   setTotalPrice, setPayedSum,resetState, state}) {
+   setTotalPrice, setPayedSum,resetState, state, handlePrint}) {
   return (
     <form className="w-[40%] bg-blue-200 p-4">
       <div className="flex gap-4 mb-4">
@@ -67,13 +67,22 @@ function Form({changeType, setNumber, setName,
           type="number" id="payedSum" value={state.payedSum}
         />
       </div>
-      <button 
-        type="button"
-        onClick={resetState}
-        className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
-        hover:scale-125 transition delay-150">
-        Reset
-      </button>
+      <div className="flex justify-between">
+        <button
+          type="button"
+          onClick={() => handlePrint()}
+          className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
+          hover:scale-125 transition delay-150">
+          Print
+        </button>
+        <button
+          type="button"
+          onClick={resetState}
+          className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
+          hover:scale-125 transition delay-150">
+          Reset
+        </button>
+      </div>
     </form>
   )
 }
