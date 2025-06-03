@@ -22,6 +22,9 @@ const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
       <p>
       طبيب اخصائي
       </p>
+      <p className="text-sm">
+        وراء محكمة الوئام مقابل مسجد عبدالله بن عمر ـ الأغواط ـ
+      </p>
       <div className="flex items-center gap-4 mb-2">
         <img src={phoneIcon} className="w-5" alt="phone icon" />
         <p>06.96.10.02.00</p>
