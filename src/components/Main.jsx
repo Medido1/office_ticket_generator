@@ -3,6 +3,7 @@ import Ticket from "./Ticket";
 import { useContext, useRef } from "react";
 import {GlobalContext} from "../context/GlobalContext";
 import { useReactToPrint } from "react-to-print";
+import Archive from "./Archive";
 
 
 function Main() {
@@ -40,6 +41,7 @@ function Main() {
         totalPrice = {state.totalPrice}
         payedSum = {state.payedSum}
       />
+      <Archive />
     </main>
   )
 }
