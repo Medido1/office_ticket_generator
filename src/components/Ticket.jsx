@@ -22,9 +22,6 @@ const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
       <p>
       طبيب اخصائي
       </p>
-      <p className="text-sm">
-        وراء محكمة الوئام مقابل مسجد عبدالله بن عمر ـ الأغواط ـ
-      </p>
       <div className="flex items-center gap-4 mb-2">
         <img src={phoneIcon} className="w-5" alt="phone icon" />
         <p>06.96.10.02.00</p>
@@ -48,7 +45,7 @@ const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
           Prix Total:
         </p>
         <p>
-          {totalPrice}
+          {totalPrice}DA
         </p>
       </div>
       <div className="self-start flex gap-4">
@@ -67,6 +64,9 @@ const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
           {totalPrice - payedSum}DA
         </p>
       </div>
+      <p className="text-sm text-center">
+        وراء محكمة الوئام مقابل مسجد عبدالله بن عمر ـ الأغواط ـ
+      </p>
     </div>
   )
 })
