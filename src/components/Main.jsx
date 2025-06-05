@@ -17,7 +17,7 @@ function Main() {
 
   const ticketRef = useRef();
   const handlePrint = useReactToPrint({
-    documentTitle: "title",
+    documentTitle: `${state.name}`,
     contentRef: ticketRef
   })
 
