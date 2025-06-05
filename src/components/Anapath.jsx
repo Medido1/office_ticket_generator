@@ -5,6 +5,7 @@ import deleteIcon from "../assets/delete.png";
 function Anapath() {
   const [fullData, setFullData] = useState([]);
   const [anapathData, setAnapathData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   
   useEffect(() => {
     let data = [];
@@ -49,6 +50,12 @@ function Anapath() {
           className="justify-self-center text-xl font-bold">
           Anapath
         </h1>
+        <div className="flex gap-4 items-center">
+          <label htmlFor="search">Search</label>
+          <input type="text"
+            className="bg-white w-[50%] p-2 rounded border-grey-300 focus:outline-none
+            focus:ring-2 focus:ring-blue-400" />
+        </div>
       </header>
       <main className="bg-gray-200 p-4">
         <table className="min-w-full border-2 border-blue-400 bg-white">
