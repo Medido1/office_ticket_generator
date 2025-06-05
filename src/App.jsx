@@ -12,9 +12,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />}/>
-        <Route path="/Anapath" element={<Anapath />}/>
-        <Route path="/Cytoponction" element={<Cytoponction />}/>
-        <Route path="/FCV" element={<FCV />}/>
+        <Route path="/anapath" element={<Anapath />}/>
+        <Route path="/cytoponction" element={<Cytoponction />}/>
+        <Route path="/fcv" element={<FCV />}/>
       </Routes>
     </Router> 
   )
