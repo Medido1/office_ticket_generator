@@ -29,13 +29,13 @@ function Anapath() {
     }, [fullData]);
 
     function deleteClient(id) {
-      const filteredFull = fullData.filter(item => item.id !== id);
-      setFullData(filteredFull);
-      localStorage.setItem("archiveData", JSON.stringify(filteredFull));
+      if (window.confirm("Êtes-vous sûr de vouloir supprimer cet enregistrement ?")) {
+        const filteredFull = fullData.filter(item => item.id !== id);
+        setFullData(filteredFull);
+        localStorage.setItem("archiveData", JSON.stringify(filteredFull));
+      }
     }
   
-
-
   return (
     <div>
       <header className="flex justify-between items-center w-full bg-blue-200 px-4 py-6">
