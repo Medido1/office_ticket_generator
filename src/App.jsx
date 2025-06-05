@@ -5,6 +5,7 @@ import Anapath from './components/Anapath';
 import Cytoponction from './components/Cytoponction';
 import FCV from './components/Fcv';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/anapath" element={<Anapath />}/>
         <Route path="/cytoponction" element={<Cytoponction />}/>
         <Route path="/fcv" element={<FCV />}/>
+        <Route path='*' element={<NotFound />}/>
       </Routes>
     </Router> 
   )
