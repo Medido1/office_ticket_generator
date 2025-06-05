@@ -5,6 +5,8 @@ import deleteIcon from "../assets/delete.png";
 function FCV() {
   const [fullData, setFullData] = useState([]);
   const [FCVData, setFCVData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [displayData, setDisplayData] = useState([]);
   
   useEffect(() => {
     let data = [];
@@ -25,8 +27,20 @@ function FCV() {
     // Update filtered data when fullData changes
     useEffect(() => {
       const filtered = fullData.filter(item => item.type === "F.C.V");
+      setDisplayData(filtered)
       setFCVData(filtered);
     }, [fullData]);
+
+    useEffect(() =>  {
+      if (searchTerm.trim() === ""){
+        setDisplayData(FCVData)
+      } else {
+        const filteredData = FCVData.filter(client => 
+          client.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setDisplayData(filteredData);
+      }
+    }, [searchTerm, FCVData])
 
     function deleteClient(id) {
       const filteredFull = fullData.filter(item => item.id !== id);
@@ -34,8 +48,6 @@ function FCV() {
       localStorage.setItem("archiveData", JSON.stringify(filteredFull));
     }
   
-
-
   return (
     <div>
       <header className="flex justify-between items-center w-full bg-blue-200 px-4 py-6">
@@ -49,6 +61,15 @@ function FCV() {
           className="justify-self-center text-xl font-bold">
           FCV
         </h1>
+        <div className="flex gap-4 items-center">
+          <label htmlFor="search">Search</label>
+          <input 
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)} 
+            type="text"
+            className="bg-white w-[50%] p-2 rounded border-grey-300 focus:outline-none
+            focus:ring-2 focus:ring-blue-400" />
+        </div>
       </header>
       <main className="bg-gray-200 p-4">
         <table className="min-w-full border-2 border-blue-400 bg-white">
@@ -72,7 +93,7 @@ function FCV() {
             </tr>
           </thead>
           <tbody>
-            {FCVData.map(client => (
+            {displayData.map(client => (
               <tr key={client.id}>
                 <td className="w-[20%] p-2 border text-center ">
                   <div className="flex gap-4 items-center">

@@ -5,6 +5,8 @@ import deleteIcon from "../assets/delete.png";
 function Cytoponction() {
   const [fullData, setFullData] = useState([]);
   const [CytoponctionData, setCytoponctionData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [displayData, setDisplayData] = useState([]);
   
   useEffect(() => {
     let data = [];
@@ -25,8 +27,20 @@ function Cytoponction() {
     // Update filtered data when fullData changes
     useEffect(() => {
       const filtered = fullData.filter(item => item.type === "Cytoponction");
-      setCytoponctionData(filtered);
+      setCytoponctionData(filtered)
+      setDisplayData(filtered);
     }, [fullData]);
+
+    useEffect(() =>  {
+      if (searchTerm.trim() === ""){
+        setDisplayData(CytoponctionData)
+      } else {
+        const filteredData = CytoponctionData.filter(client => 
+          client.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setDisplayData(filteredData);
+      }
+    }, [searchTerm, CytoponctionData])
 
     function deleteClient(id) {
       const filteredFull = fullData.filter(item => item.id !== id);
@@ -34,8 +48,6 @@ function Cytoponction() {
       localStorage.setItem("archiveData", JSON.stringify(filteredFull));
     }
   
-
-
   return (
     <div>
       <header className="flex justify-between items-center w-full bg-blue-200 px-4 py-6">
@@ -49,6 +61,15 @@ function Cytoponction() {
           className="justify-self-center text-xl font-bold">
           Cytoponction
         </h1>
+        <div className="flex gap-4 items-center">
+          <label htmlFor="search">Search</label>
+          <input 
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)} 
+            type="text"
+            className="bg-white w-[50%] p-2 rounded border-grey-300 focus:outline-none
+            focus:ring-2 focus:ring-blue-400" />
+        </div>
       </header>
       <main className="bg-gray-200 p-4">
         <table className="min-w-full border-2 border-blue-400 bg-white">
@@ -72,7 +93,7 @@ function Cytoponction() {
             </tr>
           </thead>
           <tbody>
-            {CytoponctionData.map(client => (
+            {displayData.map(client => (
               <tr key={client.id}>
                 <td className="w-[20%] p-2 border text-center ">
                   <div className="flex gap-4 items-center">
