@@ -6,6 +6,7 @@ function Anapath() {
   const [fullData, setFullData] = useState([]);
   const [anapathData, setAnapathData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [displayData, setDisplayData] = useState([]);
   
   useEffect(() => {
     let data = [];
@@ -23,19 +24,31 @@ function Anapath() {
     setFullData(data);
   }, [])
 
-    // Update filtered data when fullData changes
-    useEffect(() => {
-      const filtered = fullData.filter(item => item.type === "Anapath");
-      setAnapathData(filtered);
-    }, [fullData]);
+  // Update filtered data when fullData changes
+  useEffect(() => {
+    const filtered = fullData.filter(item => item.type === "Anapath");
+    setAnapathData(filtered);
+    setDisplayData(filtered)
+  }, [fullData]);
 
-    function deleteClient(id) {
-      if (window.confirm("Êtes-vous sûr de vouloir supprimer cet enregistrement ?")) {
-        const filteredFull = fullData.filter(item => item.id !== id);
-        setFullData(filteredFull);
-        localStorage.setItem("archiveData", JSON.stringify(filteredFull));
-      }
+  useEffect(() =>  {
+    if (searchTerm.trim() === ""){
+      setDisplayData(anapathData)
+    } else {
+      const filteredData = anapathData.filter(client => 
+        client.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setDisplayData(filteredData);
     }
+  }, [searchTerm, anapathData])
+
+  function deleteClient(id) {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cet enregistrement ?")) {
+      const filteredFull = fullData.filter(item => item.id !== id);
+      setFullData(filteredFull);
+      localStorage.setItem("archiveData", JSON.stringify(filteredFull));
+    }
+  }
   
   return (
     <div>
@@ -52,7 +65,10 @@ function Anapath() {
         </h1>
         <div className="flex gap-4 items-center">
           <label htmlFor="search">Search</label>
-          <input type="text"
+          <input 
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)} 
+            type="text"
             className="bg-white w-[50%] p-2 rounded border-grey-300 focus:outline-none
             focus:ring-2 focus:ring-blue-400" />
         </div>
@@ -79,7 +95,7 @@ function Anapath() {
             </tr>
           </thead>
           <tbody>
-            {anapathData.map(client => (
+            {displayData.map(client => (
               <tr key={client.id}>
                 <td className="w-[20%] p-2 border text-center ">
                   <div className="flex gap-4 items-center">
