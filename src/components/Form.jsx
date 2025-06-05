@@ -1,5 +1,44 @@
+import { useEffect, useState } from "react";
+
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state, handlePrint}) {
+
+  const currentDay = new Date().toLocaleDateString(`fr-FR`, {
+    year: `numeric`,
+    month: `long`,
+    day: `numeric`
+  })
+
+
+  const archiveData = localStorage.getItem("archiveData");
+  const [data, setData] = useState(() => {
+    return archiveData ? JSON.parse(archiveData) : []
+  })
+
+  const info = {
+    type: state.type,
+    name: state.name,
+    date : currentDay,
+    number : state.number,
+    totalPrice: state.totalPrice,
+    toPay: state.totalPrice - state.payedSum
+  }
+
+  function saveInfo() {
+    const newData = [...data, info];
+    setData(newData)
+    localStorage.setItem("archiveData", JSON.stringify(newData))
+    clearForm();
+  }
+
+  function clearForm() {
+    changeType("");
+    setNumber("");
+    setName("");
+    setTotalPrice("");
+    setPayedSum("");
+  }
+
   return (
     <form className="w-[40%] bg-blue-200 p-4">
       <div className="flex gap-4 mb-4">
@@ -74,6 +113,13 @@ function Form({changeType, setNumber, setName,
           className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
           hover:scale-125 transition delay-150">
           Print
+        </button>
+        <button
+          type="button"
+          onClick={saveInfo}
+          className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
+          hover:scale-125 transition delay-150">
+          Save
         </button>
         <button
           type="button"
