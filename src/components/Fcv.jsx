@@ -7,6 +7,15 @@ function FCV() {
   const [FCVData, setFCVData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [displayData, setDisplayData] = useState([]);
+
+  /* add pagination feature */
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = displayData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(displayData.length / itemsPerPage);
   
   useEffect(() => {
     let data = [];
@@ -29,6 +38,7 @@ function FCV() {
       const filtered = fullData.filter(item => item.type === "F.C.V");
       setDisplayData(filtered)
       setFCVData(filtered);
+      setCurrentPage(1);
     }, [fullData]);
 
     useEffect(() =>  {
@@ -40,6 +50,7 @@ function FCV() {
         );
         setDisplayData(filteredData);
       }
+      setCurrentPage(1);
     }, [searchTerm, FCVData])
 
     function deleteClient(id) {
@@ -93,7 +104,7 @@ function FCV() {
             </tr>
           </thead>
           <tbody>
-            {displayData.map(client => (
+            {currentItems.map(client => (
               <tr key={client.id}>
                 <td className="w-[20%] p-2 border text-center ">
                   <div className="flex gap-4 items-center">
@@ -115,6 +126,23 @@ function FCV() {
             ))}
           </tbody>
         </table>
+        <div className="mt-4 flex justify-center gap-2">
+          <button 
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="px-2 py-2">{currentPage} / {totalPages}</span>
+          <button 
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
       </main>
     </div>
   )
