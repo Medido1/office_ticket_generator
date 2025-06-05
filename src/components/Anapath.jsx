@@ -1,14 +1,40 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import deleteIcon from "../assets/delete.png";
 
 function Anapath() {
+  const [fullData, setFullData] = useState([]);
   const [anapathData, setAnapathData] = useState([]);
-
+  
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("archiveData")) || [];
-    const filterd = data.filter(item => item.type === "Anapath");
-    setAnapathData(filterd);
+    let data = [];
+    try {
+      // Attempt to get the raw string from localStorage using the key "archiveData"
+      const raw = localStorage.getItem("archiveData");
+
+      /*  If raw data exists, parse it from JSON to a JavaScript object/array
+      // If not, keep data as an empty array */
+      data = raw ? JSON.parse(raw) : [];
+    } catch (error) {
+      console.error("Corrupt archiveData:", error);
+      data = [];
+    }
+    setFullData(data);
   }, [])
+
+    // Update filtered data when fullData changes
+    useEffect(() => {
+      const filtered = fullData.filter(item => item.type === "Anapath");
+      setAnapathData(filtered);
+    }, [fullData]);
+
+    function deleteClient(id) {
+      const filteredFull = fullData.filter(item => item.id !== id);
+      setFullData(filteredFull);
+      localStorage.setItem("archiveData", JSON.stringify(filteredFull));
+    }
+  
+
 
   return (
     <div>
@@ -47,8 +73,19 @@ function Anapath() {
           </thead>
           <tbody>
             {anapathData.map(client => (
-              <tr key={client.number}>
-                <td className="p-2 border text-center w-[20%]">{client.date}</td>
+              <tr key={client.id}>
+                <td className="w-[20%] p-2 border text-center ">
+                  <div className="flex gap-4 items-center">
+                    <button 
+                      onClick={() => deleteClient(client.id)}
+                      className="cursor-pointer">
+                      <img  
+                        className="w-5"
+                        src={deleteIcon} alt="delete icon" />
+                    </button>
+                    <p>{client.date}</p>
+                  </div>
+                </td>
                 <td className="p-2 border text-center w-[7%]">{client.number}</td>
                 <td className="p-2 border text-center">{client.name}</td>
                 <td className="p-2 border text-center w-[12%]">{client.totalPrice}DA</td>

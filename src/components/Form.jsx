@@ -1,30 +1,43 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state, handlePrint}) {
 
-  const currentDay = new Date().toLocaleDateString(`fr-FR`, {
-    year: `numeric`,
-    month: `long`,
-    day: `numeric`
-  })
-
-
+  const currentDay = useMemo(() => 
+    new Date().toLocaleDateString("fr-FR", {
+      year: "numeric", month: "long", day: "numeric"
+  }), []);
+    
   const archiveData = localStorage.getItem("archiveData");
-  const [data, setData] = useState(() => {
-    return archiveData ? JSON.parse(archiveData) : []
-  })
 
-  const info = {
-    type: state.type,
-    name: state.name,
-    date : currentDay,
-    number : state.number,
-    totalPrice: state.totalPrice,
-    toPay: state.totalPrice - state.payedSum
+  function safeParse(data) {
+    try {
+      return JSON.parse(data);
+    } catch {
+      // If parsing fails, clear bad data and return empty array
+      localStorage.removeItem("archiveData");
+      return [];
+    }
   }
 
+const [data, setData] = useState(() => {
+  if (!archiveData) return [];
+  return safeParse(archiveData);
+});
   function saveInfo() {
+    if (!state.type || !state.name || !state.number || !state.totalPrice) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
+    const info = {
+      id: Date.now().toString() + Math.random().toString(36).slice(2),
+      type: state.type,
+      name: state.name,
+      date : currentDay,
+      number : state.number,
+      totalPrice: state.totalPrice,
+      toPay: state.totalPrice - state.payedSum
+    }
     const newData = [...data, info];
     setData(newData)
     localStorage.setItem("archiveData", JSON.stringify(newData))
