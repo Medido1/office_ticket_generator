@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import deleteIcon from "../assets/delete.png";
 import { FaEdit } from "react-icons/fa";
-import EditForm from "./EditForm";
 import Form from "./Form";
 import {GlobalContext} from "../context/GlobalContext";
 
@@ -21,7 +20,6 @@ function Anapath() {
 
   /* edit clients info */
   const [showForm, setShowForm] = useState(false);
-
 
   /* add pagination feature */
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,7 +49,7 @@ function Anapath() {
 
   // Update filtered data when fullData changes
   useEffect(() => {
-    const filtered = fullData.filter(item => item.type === "Anapath");
+    const filtered = fullData.filter(item => item && item.type === "Anapath");
     setAnapathData(filtered);
     setDisplayData(filtered)
     setCurrentPage(1);
@@ -77,8 +75,13 @@ function Anapath() {
     }
   }
 
+  /* edit client info */
+
+  const [currentClient, setCurrentClient] = useState({});
+
   function editClient(id) {
-    const targetClient = fullData.filter(item => item.id === id);
+    const targetClient = fullData.find(item => item && item.id === id);
+    setCurrentClient(targetClient)
     setShowForm(true);
   }
   
@@ -172,7 +175,6 @@ function Anapath() {
           </button>
         </div>
       </main>
-      {/* {showForm && <EditForm/>} */}
       {showForm && 
         <div>
           <div className="fixed inset-0 bg-black/25 z-40"></div>
@@ -188,6 +190,7 @@ function Anapath() {
               state = {state}
               width = "full"
               inputWidth="40%"
+              currentClient = {currentClient}
           /> 
           </div>
         </div>}

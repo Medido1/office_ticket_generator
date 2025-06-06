@@ -1,8 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state,
-  handlePrint, fullWidth, inputWidth}) {
+  handlePrint, fullWidth, inputWidth, currentClient}) {
 
   const currentDay = useMemo(() => 
     new Date().toLocaleDateString("fr-FR", {
@@ -48,6 +48,19 @@ function saveInfo() {
   localStorage.setItem("archiveData", JSON.stringify(newData))
   resetState();
 }
+
+// When a currentClient is provided (e.g. editing an existing entry),
+// populate the form fields with their saved data
+
+useEffect(() => {
+  if (currentClient) {
+    changeType(currentClient.type)
+    setName(currentClient.name);
+    setNumber(currentClient.number);
+    setTotalPrice(currentClient.totalPrice);
+    setPayedSum(currentClient.totalPrice - currentClient.toPay);
+  }
+}, [currentClient]);
 
 return (
   <form className={`bg-blue-200 p-4`}
