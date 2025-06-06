@@ -1,12 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import deleteIcon from "../assets/delete.png";
+import { FaEdit } from "react-icons/fa";
+import EditForm from "./EditForm";
+import Form from "./Form";
+import {GlobalContext} from "../context/GlobalContext";
 
 function Anapath() {
+  const {state, 
+    changeType, 
+    setNumber, 
+    setName,
+    setTotalPrice,
+    setPayedSum,
+    resetState} = useContext(GlobalContext)
   const [fullData, setFullData] = useState([]);
   const [anapathData, setAnapathData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [displayData, setDisplayData] = useState([]);
+
+  /* edit clients info */
+  const [showForm, setShowForm] = useState(false);
+
 
   /* add pagination feature */
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,6 +75,11 @@ function Anapath() {
       setFullData(filteredFull);
       localStorage.setItem("archiveData", JSON.stringify(filteredFull));
     }
+  }
+
+  function editClient(id) {
+    const targetClient = fullData.filter(item => item.id === id);
+    setShowForm(true);
   }
   
   return (
@@ -118,6 +138,11 @@ function Anapath() {
                         className="w-5"
                         src={deleteIcon} alt="delete icon" />
                     </button>
+                    <button 
+                      onClick={() => editClient(client.id)}
+                      className="cursor-pointer">
+                      <FaEdit />
+                    </button>
                     <p>{client.date}</p>
                   </div>
                 </td>
@@ -146,8 +171,26 @@ function Anapath() {
             Next
           </button>
         </div>
-
       </main>
+      {/* {showForm && <EditForm/>} */}
+      {showForm && 
+        <div>
+          <div className="fixed inset-0 bg-black/25 z-40"></div>
+          <div className="absolute top-[20%] left-[35%] bg-gray-200 z-40
+              p-4 rounded-2xl">
+            <Form 
+              changeType = {changeType}
+              setNumber = {setNumber}
+              setName = {setName}
+              setTotalPrice = {setTotalPrice}
+              setPayedSum = {setPayedSum}
+              resetState = {resetState}
+              state = {state}
+              width = "full"
+              inputWidth="40%"
+          /> 
+          </div>
+        </div>}
     </div>
   )
 }

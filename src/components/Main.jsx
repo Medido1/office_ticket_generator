@@ -32,6 +32,8 @@ function Main() {
         resetState = {resetState}
         state = {state}
         handlePrint = {handlePrint}
+        fullWidth = "40%"
+        inputWidth = "20%"
       />
       <Ticket
         ref={ticketRef}

@@ -1,7 +1,8 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 
 function Form({changeType, setNumber, setName,
-   setTotalPrice, setPayedSum,resetState, state, handlePrint}) {
+   setTotalPrice, setPayedSum,resetState, state,
+  handlePrint, fullWidth, inputWidth}) {
 
   const currentDay = useMemo(() => 
     new Date().toLocaleDateString("fr-FR", {
@@ -49,7 +50,8 @@ function saveInfo() {
 }
 
 return (
-  <form className="w-[40%] bg-blue-200 p-4">
+  <form className={`bg-blue-200 p-4`}
+    style={{ width: fullWidth }}>
     <div className="flex gap-4 mb-4">
       <label htmlFor="type" className="w-[25%]">
         Type d'analyses:
@@ -96,7 +98,8 @@ return (
       <select  
         onChange = {(e) => setTotalPrice(parseFloat(e.target.value) || 0)}
         id="totalPrice"
-        className="bg-white p-2 w-[15%]"
+        className={`bg-white p-2`}
+        style={{ width: inputWidth }}
         value={state.totalPrice}>
           <option value="2500">2500</option>
           <option value="2000">2000</option>
@@ -110,8 +113,9 @@ return (
       </label>
       <input
         onChange={(e) => setPayedSum(parseFloat(e.target.value) || 0)} 
-        className="bg-white w-[15%] p-2 rounded border-black focus:outline-none
-          focus:ring-2 focus:ring-blue-400"
+        className={`bg-white  p-2 rounded border-black focus:outline-none
+          focus:ring-2 focus:ring-blue-400`}
+        style={{ width: inputWidth }}
         type="number" min="0" id="payedSum" value={state.payedSum}
       />
     </div>
