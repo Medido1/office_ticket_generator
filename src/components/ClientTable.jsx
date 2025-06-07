@@ -18,10 +18,8 @@ function ClientTable({type}) {
     setPayedSum,
     resetState,
     handlePrint,
-    ticketRef} = useContext(GlobalContext)
-
-  /* for dar mode */
-  const {darkMode} = useContext(GlobalContext)
+    ticketRef, 
+    darkMode} = useContext(GlobalContext)
     
   const [fullData, setFullData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
