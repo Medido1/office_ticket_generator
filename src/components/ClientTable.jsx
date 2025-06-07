@@ -5,6 +5,8 @@ import { FaEdit } from "react-icons/fa";
 import Form from "./Form";
 import {GlobalContext} from "../context/GlobalContext";
 import Ticket from "./Ticket";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 function ClientTable({type}) {
   const {state, 
@@ -89,6 +91,32 @@ function ClientTable({type}) {
     }
   }
 
+  /* save info to excel document */
+  function exportFullDataToExcel() {
+    if (!fullData || fullData.length === 0) {
+      alert("No data to export.");
+      return;
+    }
+  
+    // Optional: remove unnecessary fields (like internal IDs)
+    const cleanData = fullData.map(({ id, ...rest }) => rest);
+  
+    const worksheet = XLSX.utils.json_to_sheet(cleanData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "FullData");
+  
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+  
+    const fileData = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
+    });
+  
+    saveAs(fileData, `archive_fullData_${new Date().toISOString().slice(0, 10)}.xlsx`);
+  }
+  
   return (
     <div className="flex-grow">
       <header className="flex justify-between items-center 
@@ -162,11 +190,12 @@ function ClientTable({type}) {
             ))}
           </tbody>
         </table>
-        <div className="mt-4 flex justify-center gap-2">
+        <div className="mt-4 relative flex justify-center items-center gap-2">
           <button 
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50"
+            className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50
+            cursor-pointer"
           >
             Previous
           </button>
@@ -174,10 +203,18 @@ function ClientTable({type}) {
           <button 
             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50"
+            className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50
+              cursor-pointer"
           >
             Next
           </button>
+          <button
+          onClick={exportFullDataToExcel}
+          className="absolute right-0 px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50
+          cursor-pointer"
+        >
+          Export To Excel
+        </button>
         </div>
       </main>
       {showForm && 
