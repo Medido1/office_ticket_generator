@@ -4,6 +4,7 @@ import deleteIcon from "../assets/delete.png";
 import { FaEdit } from "react-icons/fa";
 import Form from "./Form";
 import {GlobalContext} from "../context/GlobalContext";
+import Ticket from "./Ticket";
 
 function ClientTable({type}) {
   const {state, 
@@ -12,7 +13,9 @@ function ClientTable({type}) {
     setName,
     setTotalPrice,
     setPayedSum,
-    resetState} = useContext(GlobalContext)
+    resetState,
+    handlePrint,
+    ticketRef} = useContext(GlobalContext)
     
   const [fullData, setFullData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -195,7 +198,19 @@ function ClientTable({type}) {
               isEdit = {true}
               setShowForm= {setShowForm}
               setDisplayData = {setDisplayData}
+              handlePrint={handlePrint}
           /> 
+          </div>
+          <div className="hidden">
+          <Ticket
+            className="hidden"
+            ref={ticketRef}
+            type ={state.type}
+            number = {state.number}
+            name = {state.name}
+            totalPrice = {state.totalPrice}
+            payedSum = {state.payedSum}
+          />
           </div>
         </div>
       }

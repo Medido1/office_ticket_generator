@@ -1,4 +1,5 @@
-import {createContext, useReducer } from "react";
+import {createContext, useReducer, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import AppReducer from "./AppReducer";
 
 export const initialState = {
@@ -13,6 +14,12 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({children}) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+
+  const ticketRef = useRef();
+  const handlePrint = useReactToPrint({
+    documentTitle: `${state.name}`,
+    contentRef: ticketRef
+  })
 
   function changeType (type) {
     dispatch({
@@ -50,7 +57,9 @@ export const GlobalProvider = ({children}) => {
       setName,
       setTotalPrice,
       setPayedSum,
-      resetState
+      resetState,
+      handlePrint, 
+      ticketRef
     }}>
       {children}
     </GlobalContext.Provider>

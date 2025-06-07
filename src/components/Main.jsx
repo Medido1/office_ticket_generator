@@ -2,7 +2,6 @@ import Form from "./Form";
 import Ticket from "./Ticket";
 import { useContext, useRef } from "react";
 import {GlobalContext} from "../context/GlobalContext";
-import { useReactToPrint } from "react-to-print";
 import Archive from "./Archive";
 
 
@@ -13,13 +12,9 @@ function Main() {
     setName,
     setTotalPrice,
     setPayedSum,
-    resetState} = useContext(GlobalContext)
-
-  const ticketRef = useRef();
-  const handlePrint = useReactToPrint({
-    documentTitle: `${state.name}`,
-    contentRef: ticketRef
-  })
+    resetState,
+    handlePrint,
+    ticketRef} = useContext(GlobalContext)
 
   return (
     <main className="p-4 flex gap-4 bg-gray-200">
