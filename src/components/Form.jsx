@@ -87,6 +87,12 @@ function updateInfo() {
   resetState();
 }
 
+/* cancel editing */
+
+function cancelEdit(){
+  setShowForm(false)
+}
+
 return (
   <form className={`bg-blue-200 p-4`}
     style={{ width: fullWidth }}>
@@ -188,6 +194,15 @@ return (
         hover:scale-125 transition delay-150
         ${isEdit ? "hidden" : "block"}`}>
         Reset
+      </button>
+      <button
+        type="button"
+        onClick={cancelEdit}
+        className={`mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
+          hover:scale-125 transition delay-150
+          ${!isEdit ? "hidden" : "block"}`}
+        >
+        Cancel
       </button>
     </div>
     </form>
