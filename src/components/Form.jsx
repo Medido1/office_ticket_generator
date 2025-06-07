@@ -28,8 +28,11 @@ function Form({changeType, setNumber, setName,
   }
 
   const archiveData = localStorage.getItem("archiveData");
-  const initialData = useMemo(() => safeParse(archiveData), [archiveData]);
-  const [data, setData] = useState(initialData);
+
+  const [data, setData] = useState(() => {
+    if (!archiveData) return [];
+    return safeParse(archiveData);
+    });
 
   function isFormValid() {
     return state.type && state.name && state.number && state.totalPrice 

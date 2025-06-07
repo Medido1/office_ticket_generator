@@ -1,12 +1,43 @@
-# React + Vite
+# Office ticket generator
+## Table of contents
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- [Overview](#overview)
+  - [Discription](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+- [Author](#author)
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Discription
 
-## Expanding the ESLint configuration
+This web application allows users to efficiently manage client records by viewing, searching, editing, and deleting client data, Users can update client details via an editable form and export the entire client archive to an Excel file for offline use.The interface supports dark mode for comfortable viewing and includes print-ready ticket generation. Built with React and enhanced with localStorage for persistent data storage, it ensures seamless client data management in a clean design.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Screenshot
+
+  ## Home Page and ticket generator
+  ![](./src/screenshots/HomePage.png)
+
+  ## DateBase
+  ![](./src/screenshots/dataBase.png)
+
+### Links
+
+- Solution URL: [solution](https://github.com/Medido1/office_ticket_generator)
+- Live Site URL: [live site](https://officeticketgenerator.netlify.app/)
+
+## My process
+
+### Built with
+
+- TailwindCSS
+- React
+- Flexbox
+
+## Author
+
+- GitHub - [@Medido1](https://github.com/Medido1)
+
+
