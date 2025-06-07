@@ -152,7 +152,7 @@ function ClientTable({type}) {
         <table className={`min-w-full border-2 
           ${darkMode ? "bg-black border-blue-200 text-white" 
             : "bg-white border-blue-400 text-black"}`}>
-          <thead className="bg-blue-400">
+          <thead className={`${darkMode ? "bg-blue-600" : "bg-blue-400"}`}>
             <tr>
               <th>
                 Date
