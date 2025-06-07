@@ -1,4 +1,5 @@
 import { MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
 import {GlobalContext} from "../context/GlobalContext";
 import { useContext } from "react";
 
@@ -12,10 +13,12 @@ function Header() {
       </h1>
       <button 
         onClick={toggleDarkMode}
-        className="absolute right-10 cursor-pointer flex items-center gap-2
-        bg-white px-4 rounded-full hover:bg-gray-200">
-        <p>Dark Mode</p>
-        <MdDarkMode className="h-10" />
+        className={`absolute right-10 cursor-pointer flex items-center gap-2
+          px-4 rounded-full hover:bg-gray-400 ${darkMode ? "bg-white" : "bg-gray-200"}`}>
+        <p className={`text-black`}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </p>
+        {darkMode ? <CiLight className="h-10" /> : <MdDarkMode className="h-10" />}
       </button>
     </header>
   )
