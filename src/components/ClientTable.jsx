@@ -79,10 +79,10 @@ function ClientTable({type}) {
     if (searchTerm.trim() === ""){
       setDisplayData(filteredData)
     } else {
-      const filteredData = filteredData.filter(client => 
+      const searchData = filteredData.filter(client => 
         client.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setDisplayData(filteredData);
+      setDisplayData(searchData);
     }
     setCurrentPage(1);
   }, [searchTerm, filteredData])
