@@ -17,8 +17,6 @@ function Form({changeType, setNumber, setName,
       year: "numeric", month: "long", day: "numeric"
   }), []);
     
-  const archiveData = localStorage.getItem("archiveData");
-
   function safeParse(data) {
     try {
       return JSON.parse(data);
@@ -29,76 +27,76 @@ function Form({changeType, setNumber, setName,
     }
   }
 
-const [data, setData] = useState(() => {
-  if (!archiveData) return [];
-  return safeParse(archiveData);
-});
+  const archiveData = localStorage.getItem("archiveData");
+  const initialData = useMemo(() => safeParse(archiveData), [archiveData]);
+  const [data, setData] = useState(initialData);
 
-function isFormValid() {
-  return state.type && state.name && state.number && state.totalPrice 
-}
-function saveInfo() {
-  if (!isFormValid()) {
-    alert("Veuillez remplir tous les champs obligatoires.");
-    return;
+  function isFormValid() {
+    return state.type && state.name && state.number && state.totalPrice 
   }
-  const info = {
-    id: crypto.randomUUID(),
-    type: state.type,
-    name: state.name,
-    date : currentDay,
-    number : state.number,
-    totalPrice: state.totalPrice,
-    toPay: state.totalPrice - state.payedSum
-  }
-  const newData = [...data, info];
-  setData(newData)
-  localStorage.setItem("archiveData", JSON.stringify(newData))
-  resetState();
-}
 
-// When a currentClient is provided (e.g. editing an existing entry),
-// populate the form fields with their saved data
-
-useEffect(() => {
-  if (currentClient) {
-    changeType(currentClient.type)
-    setName(currentClient.name);
-    setNumber(currentClient.number);
-    setTotalPrice(currentClient.totalPrice);
-    setPayedSum(currentClient.totalPrice - currentClient.toPay);
-  }
-}, [currentClient]);
-
-function updateInfo() {
-  if (!isFormValid()) {
-    alert("Veuillez remplir tous les champs obligatoires.");
-    return;
-  }
-  const updatedData = data.map(client => {
-    return client.id === currentClient.id ? 
-    {...client, 
-    type: state.type,
-    name : state.name,
-    number: state.number,
-    totalPrice: state.totalPrice,
-    payedSum: state.payedSum,
-    toPay: state.totalPrice - state.payedSum
+  function saveInfo() {
+    if (!isFormValid()) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
     }
-    : client;
-  }) 
-  localStorage.setItem("archiveData", JSON.stringify(updatedData));
-  setData(updatedData);
-  setDisplayData(updatedData);
-  setShowForm(false);
-  resetState();
-}
+    const info = {
+      id: crypto.randomUUID(),
+      type: state.type,
+      name: state.name,
+      date : currentDay,
+      number : state.number,
+      totalPrice: state.totalPrice,
+      toPay: state.totalPrice - state.payedSum
+    }
+    const newData = [...data, info];
+    setData(newData)
+    localStorage.setItem("archiveData", JSON.stringify(newData))
+    resetState();
+  }
 
-/* cancel editing */
+  // When a currentClient is provided (e.g. editing an existing entry),
+  // populate the form fields with their saved data
 
-function cancelEdit(){
-  setShowForm(false)
-}
+  useEffect(() => {
+    if (currentClient) {
+      changeType(currentClient.type)
+      setName(currentClient.name);
+      setNumber(currentClient.number);
+      setTotalPrice(currentClient.totalPrice);
+      setPayedSum(currentClient.totalPrice - currentClient.toPay);
+    }
+  }, [currentClient]);
+
+  function updateInfo() {
+    if (!isFormValid()) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
+    const updatedData = data.map(client => {
+      return client.id === currentClient.id ? 
+      {...client, 
+      type: state.type,
+      name : state.name,
+      number: state.number,
+      totalPrice: state.totalPrice,
+      payedSum: state.payedSum,
+      toPay: state.totalPrice - state.payedSum
+      }
+      : client;
+    }) 
+    localStorage.setItem("archiveData", JSON.stringify(updatedData));
+    setData(updatedData);
+    setDisplayData(updatedData);
+    setShowForm(false);
+    resetState();
+  }
+
+  /* cancel editing */
+
+  function cancelEdit(){
+    setShowForm(false)
+  }
 
 return (
   <form className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
