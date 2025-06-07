@@ -5,7 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import Form from "./Form";
 import {GlobalContext} from "../context/GlobalContext";
 
-function Cytoponction() {
+function ClientTable({type}) {
   const {state, 
     changeType, 
     setNumber, 
@@ -15,30 +15,31 @@ function Cytoponction() {
     resetState} = useContext(GlobalContext)
     
   const [fullData, setFullData] = useState([]);
-  const [CytoponctionData, setCytoponctionData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [displayData, setDisplayData] = useState([]);
 
   /* edit clients info */
   const [showForm, setShowForm] = useState(false);
+  const [currentClient, setCurrentClient] = useState({});
 
-   /* edit client info */
-
-   const [currentClient, setCurrentClient] = useState({});
-
-   function editClient(id) {
-     const targetClient = fullData.find(item => item && item.id === id);
-     setCurrentClient(targetClient)
-     setShowForm(true);
-   }
+  function editClient(id) {
+    const targetClient = fullData.find(item => item && item.id === id);
+    setCurrentClient(targetClient)
+    setShowForm(true);
+  }
 
   /* add pagination feature */
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 25;
+  const [currentItems, setCurrentItems] = useState([]);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = displayData.slice(indexOfFirstItem, indexOfLastItem);
+  useEffect(() => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setCurrentItems(displayData.slice(indexOfFirstItem, indexOfLastItem))
+  }, [displayData, currentPage]);
+  
   const totalPages = Math.ceil(displayData.length / itemsPerPage);
   
   useEffect(() => {
@@ -55,34 +56,36 @@ function Cytoponction() {
       data = [];
     }
     setFullData(data);
-  }, [])
+  }, [showForm])
 
-    // Update filtered data when fullData changes
-    useEffect(() => {
-      const filtered = fullData.filter(item => item.type === "Cytoponction");
-      setCytoponctionData(filtered)
-      setDisplayData(filtered);
-      setCurrentPage(1);
-    }, [fullData]);
+  // Update filtered data when fullData changes
+  useEffect(() => {
+    const filtered = fullData.filter(item => item && item.type === type);
+    setFilteredData(filtered);
+    setDisplayData(filtered)
+    setCurrentPage(1);
+  }, [fullData]);
 
-    useEffect(() =>  {
-      if (searchTerm.trim() === ""){
-        setDisplayData(CytoponctionData)
-      } else {
-        const filteredData = CytoponctionData.filter(client => 
-          client.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setDisplayData(filteredData);
-      }
-      setCurrentPage(1);
-    }, [searchTerm, CytoponctionData])
+  useEffect(() =>  {
+    if (searchTerm.trim() === ""){
+      setDisplayData(filteredData)
+    } else {
+      const filteredData = filteredData.filter(client => 
+        client.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setDisplayData(filteredData);
+    }
+    setCurrentPage(1);
+  }, [searchTerm, filteredData])
 
-    function deleteClient(id) {
+  function deleteClient(id) {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cet enregistrement ?")) {
       const filteredFull = fullData.filter(item => item.id !== id);
       setFullData(filteredFull);
       localStorage.setItem("archiveData", JSON.stringify(filteredFull));
     }
-  
+  }
+
   return (
     <div>
       <header className="flex justify-between items-center w-full bg-blue-200 px-4 py-6">
@@ -94,7 +97,7 @@ function Cytoponction() {
         </Link>
         <h1 
           className="justify-self-center text-xl font-bold">
-          Cytoponction
+          {type}
         </h1>
         <div className="flex gap-4 items-center">
           <label htmlFor="search">Search</label>
@@ -200,4 +203,4 @@ function Cytoponction() {
   )
 }
 
-export default Cytoponction;
+export default ClientTable;

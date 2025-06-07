@@ -70,7 +70,7 @@ function updateInfo() {
   }
   const updatedData = data.map(client => {
     return client.id === currentClient.id ? 
-    {...currentClient, 
+    {...client, 
     type: state.type,
     name : state.name,
     number: state.number,
@@ -80,10 +80,10 @@ function updateInfo() {
     }
     : client;
   }) 
-  setData(updatedData);
-  setShowForm(false);
-  setDisplayData(updatedData);
   localStorage.setItem("archiveData", JSON.stringify(updatedData));
+  setData(updatedData);
+  setDisplayData(updatedData);
+  setShowForm(false);
   resetState();
 }
 
