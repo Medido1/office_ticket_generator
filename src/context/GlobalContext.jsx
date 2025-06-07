@@ -1,4 +1,4 @@
-import {createContext, useReducer, useRef } from "react";
+import {createContext, useReducer, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import AppReducer from "./AppReducer";
 
@@ -13,6 +13,7 @@ export const initialState = {
 export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({children}) => {
+  /* printing stats */
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   const ticketRef = useRef();
@@ -20,6 +21,14 @@ export const GlobalProvider = ({children}) => {
     documentTitle: `${state.name}`,
     contentRef: ticketRef
   })
+
+  /* dark mode */
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev) 
+  }
+
 
   function changeType (type) {
     dispatch({
@@ -59,7 +68,9 @@ export const GlobalProvider = ({children}) => {
       setPayedSum,
       resetState,
       handlePrint, 
-      ticketRef
+      ticketRef,
+      darkMode, 
+      toggleDarkMode
     }}>
       {children}
     </GlobalContext.Provider>

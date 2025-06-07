@@ -1,9 +1,16 @@
 import { useState, useMemo, useEffect } from "react";
+import {GlobalContext} from "../context/GlobalContext";
+import { useContext } from "react";
 
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state,
   handlePrint, fullWidth, inputWidth, currentClient,
   isEdit, setShowForm, setDisplayData}) {
+
+  const {darkMode} = useContext(GlobalContext)
+
+  const buttonStyle = `block mx-auto px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
+    hover:scale-125 transition delay-150 ${darkMode ? "bg-black": "bg-white"}`
 
   const currentDay = useMemo(() => 
     new Date().toLocaleDateString("fr-FR", {
@@ -94,7 +101,8 @@ function cancelEdit(){
 }
 
 return (
-  <form className={`bg-blue-200 p-4`}
+  <form className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
+    px-4 py-8 `}
     style={{ width: fullWidth }}>
     <div className="flex gap-4 mb-4">
       <label htmlFor="type" className="w-[25%]">
@@ -103,7 +111,7 @@ return (
       <select 
         onChange = {(e) => changeType(e.target.value)}
         id="type"
-        className="bg-white"
+        className={`${darkMode ? "bg-black" : "bg-white"}`}
         value={state.type}
         disabled={isEdit}
       >
@@ -119,8 +127,8 @@ return (
       </label>
       <input 
         onChange={(e) => setNumber(e.target.value)}
-        className="bg-white w-[25%] p-2 rounded border-grey-300 focus:outline-none
-          focus:ring-2 focus:ring-blue-400"
+        className={`w-[25%] p-2 rounded border-grey-300 focus:outline-none
+          focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="number" 
         id="number"
         value={state.number} min="0"/>
@@ -131,8 +139,8 @@ return (
       </label>
       <input
         onChange={(e) => setName(e.target.value)} 
-        className="bg-white w-[40%] p-2 rounded border-grey-300 focus:outline-none
-          focus:ring-2 focus:ring-blue-400"
+        className={`w-[40%] p-2 rounded border-grey-300 focus:outline-none
+          focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="text" id="name" autoComplete="off" value={state.name}
       />
     </div>
@@ -143,7 +151,7 @@ return (
       <select  
         onChange = {(e) => setTotalPrice(parseFloat(e.target.value) || 0)}
         id="totalPrice"
-        className={`bg-white p-2`}
+        className={`${darkMode ? "bg-black" : "bg-white"} p-2`}
         style={{ width: inputWidth }}
         value={state.totalPrice}>
           <option value="2500">2500</option>
@@ -158,8 +166,8 @@ return (
       </label>
       <input
         onChange={(e) => setPayedSum(parseFloat(e.target.value) || 0)} 
-        className={`bg-white  p-2 rounded border-black focus:outline-none
-          focus:ring-2 focus:ring-blue-400`}
+        className={`w-[40%] p-2 rounded border-grey-300 focus:outline-none
+          focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         style={{ width: inputWidth }}
         type="number" min="0" id="payedSum" value={state.payedSum}
       />
@@ -176,23 +184,19 @@ return (
           }
           }
         } 
-        className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
-        hover:scale-125 transition delay-150">
+        className={buttonStyle}>
         Print
       </button>
       <button
         type="button"
         onClick={() => isEdit ? updateInfo() : saveInfo()}
-        className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
-          hover:scale-125 transition delay-150">
+        className={buttonStyle}>
         Save
       </button>
       <button
         type="button"
         onClick={resetState}
-        className={`mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
-        hover:scale-125 transition delay-150
-        ${isEdit ? "hidden" : "block"}`}>
+        className={`${buttonStyle} ${isEdit ? "hidden" : "block"}`}>
         Reset
       </button>
       <button

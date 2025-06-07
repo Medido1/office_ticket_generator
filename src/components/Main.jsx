@@ -1,6 +1,6 @@
 import Form from "./Form";
 import Ticket from "./Ticket";
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import {GlobalContext} from "../context/GlobalContext";
 import Archive from "./Archive";
 
@@ -14,10 +14,12 @@ function Main() {
     setPayedSum,
     resetState,
     handlePrint,
-    ticketRef} = useContext(GlobalContext)
+    ticketRef,
+    darkMode,
+    } = useContext(GlobalContext)
 
   return (
-    <main className="p-4 flex gap-4 bg-gray-200 flex-grow">
+    <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4 flex gap-4 flex-grow`}>
       <Form 
         changeType = {changeType}
         setNumber = {setNumber}
