@@ -194,7 +194,11 @@ function ClientTable({type}) {
                 <td className="p-2 border text-center w-[7%]">{client.number}</td>
                 <td className="p-2 border text-center">{client.name}</td>
                 <td className="p-2 border text-center w-[12%]">{client.totalPrice}DA</td>
-                <td className="p-2 border text-center w-[12%]">{client.toPay}DA</td>
+                <td 
+                  className={`${client.toPay === 0 ? "bg-green-400" :"bg-red-400"}
+                  p-2 border text-center w-[12%]`}>
+                  {client.toPay}DA
+                </td>
               </tr>
             ))}
           </tbody>
