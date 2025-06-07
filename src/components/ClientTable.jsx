@@ -90,8 +90,9 @@ function ClientTable({type}) {
   }
 
   return (
-    <div>
-      <header className="flex justify-between items-center w-full bg-blue-200 px-4 py-6">
+    <div className="flex-grow">
+      <header className="flex justify-between items-center 
+         w-full bg-blue-200 px-4 py-6">
         <Link to="/">
           <button className="bg-white rounded-full px-4 py-2 cursor-pointer
             hover:bg-blue-400 hover:scale-110 transition duration-150">
@@ -99,7 +100,7 @@ function ClientTable({type}) {
           </button>
         </Link>
         <h1 
-          className="justify-self-center text-xl font-bold">
+          className="ml-65 text-2xl font-bold">
           {type}
         </h1>
         <div className="flex gap-4 items-center">

@@ -17,7 +17,7 @@ function Main() {
     ticketRef} = useContext(GlobalContext)
 
   return (
-    <main className="p-4 flex gap-4 bg-gray-200">
+    <main className="p-4 flex gap-4 bg-gray-200 flex-grow">
       <Form 
         changeType = {changeType}
         setNumber = {setNumber}
