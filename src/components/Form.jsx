@@ -2,7 +2,8 @@ import { useState, useMemo, useEffect } from "react";
 
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state,
-  handlePrint, fullWidth, inputWidth, currentClient}) {
+  handlePrint, fullWidth, inputWidth, currentClient,
+  isEdit, setShowForm, setDisplayData}) {
 
   const currentDay = useMemo(() => 
     new Date().toLocaleDateString("fr-FR", {
@@ -27,7 +28,7 @@ const [data, setData] = useState(() => {
 });
 
 function isFormValid() {
-  return state.type && state.name && state.number && state.totalPrice
+  return state.type && state.name && state.number && state.totalPrice 
 }
 function saveInfo() {
   if (!isFormValid()) {
@@ -62,6 +63,30 @@ useEffect(() => {
   }
 }, [currentClient]);
 
+function updateInfo() {
+  if (!isFormValid()) {
+    alert("Veuillez remplir tous les champs obligatoires.");
+    return;
+  }
+  const updatedData = data.map(client => {
+    return client.id === currentClient.id ? 
+    {...currentClient, 
+    type: state.type,
+    name : state.name,
+    number: state.number,
+    totalPrice: state.totalPrice,
+    payedSum: state.payedSum,
+    toPay: state.totalPrice - state.payedSum
+    }
+    : client;
+  }) 
+  setData(updatedData);
+  setShowForm(false);
+  setDisplayData(updatedData);
+  localStorage.setItem("archiveData", JSON.stringify(updatedData));
+  resetState();
+}
+
 return (
   <form className={`bg-blue-200 p-4`}
     style={{ width: fullWidth }}>
@@ -74,6 +99,7 @@ return (
         id="type"
         className="bg-white"
         value={state.type}
+        disabled={isEdit}
       >
         <option value="">select</option>
         <option value="Anapath">Anapath</option>
@@ -150,7 +176,7 @@ return (
       </button>
       <button
         type="button"
-        onClick={saveInfo}
+        onClick={() => isEdit ? updateInfo() : saveInfo()}
         className="block mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
           hover:scale-125 transition delay-150">
         Save

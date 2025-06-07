@@ -13,6 +13,7 @@ function Anapath() {
     setTotalPrice,
     setPayedSum,
     resetState} = useContext(GlobalContext)
+    
   const [fullData, setFullData] = useState([]);
   const [anapathData, setAnapathData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,6 +21,14 @@ function Anapath() {
 
   /* edit clients info */
   const [showForm, setShowForm] = useState(false);
+
+  const [currentClient, setCurrentClient] = useState({});
+
+  function editClient(id) {
+    const targetClient = fullData.find(item => item && item.id === id);
+    setCurrentClient(targetClient)
+    setShowForm(true);
+  }
 
   /* add pagination feature */
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +38,6 @@ function Anapath() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = displayData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(displayData.length / itemsPerPage);
-
   
   useEffect(() => {
     let data = [];
@@ -75,16 +83,6 @@ function Anapath() {
     }
   }
 
-  /* edit client info */
-
-  const [currentClient, setCurrentClient] = useState({});
-
-  function editClient(id) {
-    const targetClient = fullData.find(item => item && item.id === id);
-    setCurrentClient(targetClient)
-    setShowForm(true);
-  }
-  
   return (
     <div>
       <header className="flex justify-between items-center w-full bg-blue-200 px-4 py-6">
@@ -191,9 +189,13 @@ function Anapath() {
               width = "full"
               inputWidth="40%"
               currentClient = {currentClient}
+              isEdit = {true}
+              setShowForm= {setShowForm}
+              setDisplayData = {setDisplayData}
           /> 
           </div>
-        </div>}
+        </div>
+      }
     </div>
   )
 }

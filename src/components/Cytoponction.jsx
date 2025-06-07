@@ -1,12 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import deleteIcon from "../assets/delete.png";
+import { FaEdit } from "react-icons/fa";
+import Form from "./Form";
+import {GlobalContext} from "../context/GlobalContext";
 
 function Cytoponction() {
+  const {state, 
+    changeType, 
+    setNumber, 
+    setName,
+    setTotalPrice,
+    setPayedSum,
+    resetState} = useContext(GlobalContext)
+    
   const [fullData, setFullData] = useState([]);
   const [CytoponctionData, setCytoponctionData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [displayData, setDisplayData] = useState([]);
+
+  /* edit clients info */
+  const [showForm, setShowForm] = useState(false);
+
+   /* edit client info */
+
+   const [currentClient, setCurrentClient] = useState({});
+
+   function editClient(id) {
+     const targetClient = fullData.find(item => item && item.id === id);
+     setCurrentClient(targetClient)
+     setShowForm(true);
+   }
 
   /* add pagination feature */
   const [currentPage, setCurrentPage] = useState(1);
@@ -115,6 +139,11 @@ function Cytoponction() {
                         className="w-5"
                         src={deleteIcon} alt="delete icon" />
                     </button>
+                    <button 
+                      onClick={() => editClient(client.id)}
+                      className="cursor-pointer">
+                      <FaEdit />
+                    </button>
                     <p>{client.date}</p>
                   </div>
                 </td>
@@ -144,6 +173,29 @@ function Cytoponction() {
           </button>
         </div>
       </main>
+      {showForm && 
+        <div>
+          <div className="fixed inset-0 bg-black/25 z-40"></div>
+          <div className="absolute top-[20%] left-[35%] bg-gray-200 z-40
+              p-4 rounded-2xl">
+            <Form 
+              changeType = {changeType}
+              setNumber = {setNumber}
+              setName = {setName}
+              setTotalPrice = {setTotalPrice}
+              setPayedSum = {setPayedSum}
+              resetState = {resetState}
+              state = {state}
+              width = "full"
+              inputWidth="40%"
+              currentClient = {currentClient}
+              isEdit = {true}
+              setShowForm= {setShowForm}
+              setDisplayData = {setDisplayData}
+          /> 
+          </div>
+        </div>
+      }
     </div>
   )
 }
