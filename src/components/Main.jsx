@@ -18,6 +18,8 @@ function Main() {
     darkMode,
     } = useContext(GlobalContext)
 
+  const {type, number, name, totalPrice, payedSum} = state;
+
   return (
     <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4 flex gap-4 flex-grow`}>
       <Form 
@@ -34,11 +36,11 @@ function Main() {
       />
       <Ticket
         ref={ticketRef}
-        type ={state.type}
-        number = {state.number}
-        name = {state.name}
-        totalPrice = {state.totalPrice}
-        payedSum = {state.payedSum}
+        type = {type}
+        number = {number}
+        name = {name}
+        totalPrice = {totalPrice}
+        payedSum = {payedSum}
       />
       <Archive />
     </main>
