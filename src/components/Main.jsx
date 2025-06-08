@@ -22,7 +22,8 @@ function Main() {
   const {type, number, name, totalPrice, payedSum} = state;
 
   return (
-    <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4 flex gap-4 flex-grow`}>
+    <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4  gap-4 flex-grow
+      sm:flex sm:flex-col`}>
       <Form 
         changeType = {changeType}
         setNumber = {setNumber}
