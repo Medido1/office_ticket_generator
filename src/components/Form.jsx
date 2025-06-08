@@ -18,8 +18,6 @@ function Form({changeType, setNumber, setName,
       year: "numeric", month: "long", day: "numeric"
   }), []);
     
-  
-
   const archiveData = localStorage.getItem("archiveData");
 
   const [data, setData] = useState(() => {
@@ -94,6 +92,20 @@ function Form({changeType, setNumber, setName,
     setShowForm(false)
   }
 
+  /* get last entry number and update form number to next entery */
+
+  function GetNextEnteryNumber(e) {
+    changeType(e.target.value);
+    const filterd = data.filter(client => client.type === e.target.value);
+    let latestNumber;
+    if (filterd.length === 0) {
+      latestNumber = 1;
+    } else {
+      latestNumber = Math.max(...filterd.map(item => (item.number)));
+    }
+    setNumber(latestNumber + 1);
+  }
+
 return (
   <form className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
     px-4 py-8 `}
@@ -103,7 +115,7 @@ return (
         Type d'analyses:
       </label>
       <select 
-        onChange = {(e) => changeType(e.target.value)}
+        onChange = {(e) => GetNextEnteryNumber(e)}
         id="type"
         className={`${darkMode ? "bg-black" : "bg-white"}`}
         value={state.type}
