@@ -23,7 +23,7 @@ function Main() {
 
   return (
     <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4  gap-4 flex-grow
-      sm:flex sm:flex-col`}>
+      sm:flex sm:flex-col md:flex-row md:justify-center`}>
       <Form 
         changeType = {changeType}
         setNumber = {setNumber}
@@ -33,8 +33,7 @@ function Main() {
         resetState = {resetState}
         state = {state}
         handlePrint = {handlePrint}
-        fullWidth = "40%"
-        inputWidth = "20%"
+        isEdit = {false}
       />
       <Ticket
         ref={ticketRef}

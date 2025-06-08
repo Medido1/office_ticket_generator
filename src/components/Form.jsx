@@ -5,7 +5,7 @@ import safeParse from "../utilities/SafeParse";
 
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state,
-  handlePrint, fullWidth, inputWidth, currentClient,
+  handlePrint, currentClient,
   isEdit, setShowForm, setDisplayData}) {
 
   const {darkMode} = useContext(GlobalContext)
@@ -108,10 +108,10 @@ function Form({changeType, setNumber, setName,
 
 return (
   <form className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
-    px-4 py-8 `}
-    style={{ width: fullWidth }}>
+    px-4 py-8 ${isEdit ? `md:w-full` : "md:w-[40%]"} sm:w-full mb-2`}
+    >
     <div className="flex gap-4 mb-4">
-      <label htmlFor="type" className="w-[25%]">
+      <label htmlFor="type" className="w-[40%] sm:w-[25%]">
         Type d'analyses:
       </label>
       <select 
@@ -128,7 +128,7 @@ return (
       </select>
     </div>
     <div className="flex gap-4 items-center mb-4">
-      <label htmlFor="number" className="w-[25%]">
+      <label htmlFor="number" className="w-[40%] sm:w-[25%]">
         Numero :
       </label>
       <input 
@@ -140,25 +140,25 @@ return (
         value={state.number} min="0"/>
     </div>
     <div className="flex gap-4 items-center">
-      <label htmlFor="name" className="w-[25%]">
+      <label htmlFor="name" className="w-[40%] sm:w-[25%]">
         Nom :
       </label>
       <input
         onChange={(e) => setName(e.target.value)} 
-        className={`w-[40%] p-2 rounded border-grey-300 focus:outline-none
+        className={`w-[50%] sm:w-[40%]  p-2 rounded border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="text" id="name" autoComplete="off" value={state.name}
       />
     </div>
     <div className="flex gap-4  items-center mt-4">
-      <label htmlFor="totalPrice" className="w-[25%]">
+      <label htmlFor="totalPrice" className="w-[40%] sm:w-[25%]">
         Prix Total :
       </label>
       <select  
         onChange = {(e) => setTotalPrice(parseFloat(e.target.value) || 0)}
         id="totalPrice"
-        className={`${darkMode ? "bg-black" : "bg-white"} p-2`}
-        style={{ width: inputWidth }}
+        className={`${darkMode ? "bg-black" : "bg-white"} p-2 
+        ${isEdit ? `w-[24%]` : "w-[25%] sm:w-[20%]"}`}
         value={state.totalPrice}>
           <option value="2500">2500</option>
           <option value="2000">2000</option>
@@ -167,14 +167,14 @@ return (
       </select>
     </div>
     <div className="flex gap-4 items-center mt-4">
-      <label htmlFor="payedSum" className="w-[25%]">
+      <label htmlFor="payedSum" className="w-[40%] sm:w-[25%]">
         Prix payée :
       </label>
       <input
         onChange={(e) => setPayedSum(parseFloat(e.target.value) || 0)} 
-        className={`w-[40%] p-2 rounded border-grey-300 focus:outline-none
-          focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
-        style={{ width: inputWidth }}
+        className={`p-2 rounded border-grey-300 focus:outline-none
+          focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
+          ${isEdit ? `w-[24%]` : "w-[25%] sm:w-[20%]"}`}
         type="number" min="0" id="payedSum" value={state.payedSum}
       />
     </div>
