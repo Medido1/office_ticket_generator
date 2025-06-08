@@ -1,6 +1,6 @@
 import Form from "./Form";
 import Ticket from "./Ticket";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {GlobalContext} from "../context/GlobalContext";
 import Archive from "./Archive";
 

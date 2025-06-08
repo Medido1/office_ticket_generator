@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import {GlobalContext} from "../context/GlobalContext";
 import { useContext } from "react";
+import safeParse from "../utilities/SafeParse";
 
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state,
@@ -17,15 +18,7 @@ function Form({changeType, setNumber, setName,
       year: "numeric", month: "long", day: "numeric"
   }), []);
     
-  function safeParse(data) {
-    try {
-      return JSON.parse(data);
-    } catch {
-      // If parsing fails, clear bad data and return empty array
-      localStorage.removeItem("archiveData");
-      return [];
-    }
-  }
+  
 
   const archiveData = localStorage.getItem("archiveData");
 
