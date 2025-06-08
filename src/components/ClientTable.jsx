@@ -121,29 +121,31 @@ function ClientTable({type}) {
   
   return (
     <div className="flex-grow">
-      <header className={`flex justify-between items-center 
-         w-full px-4 py-6 ${darkMode ? "bg-blue-600" : "bg-blue-200"}`}>
+      <header className={`flex flex-col sm:flex-row gap-4 justify-center sm:justify-between 
+        items-center w-full px-4 py-6 ${darkMode ? "bg-blue-600" : "bg-blue-200"}`}>
         <Link to="/">
-          <button className={`rounded-full px-4 py-2 cursor-pointer
+          <button className={` rounded-full px-4 py-2 cursor-pointer
             hover:bg-blue-400 hover:scale-110 transition duration-150
             ${darkMode ? "bg-blue-950 text-white" : "bg-white"}`}>
             Home
           </button>
         </Link>
         <h1 
-          className={`ml-65 text-2xl font-bold ${darkMode ? "text-white" : "text-black"}`}>
+          className={`order-first sm:order-none text-2xl font-bold 
+          ${darkMode ? "text-white" : "text-black"}`}>
           {type}
         </h1>
-        <div className="flex gap-4 items-center">
+        <div>
           <label 
             className={`${darkMode ? "text-white" : "text-black"}`}
-            htmlFor="search">Search</label>
+            htmlFor="search"></label>
           <input 
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)} 
             type="text"
-            className={`w-[50%] p-2 rounded border-grey-300 focus:outline-none
-            focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-blue-400" : "bg-white"}`} />
+            className={`p-2 w-full sm:w-[60%] brounded border-grey-300 focus:outline-none
+            focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-blue-400" : "bg-white"}`} 
+            placeholder="Search"/>
         </div>
       </header>
       <main className="bg-gray-200 p-4">
@@ -173,7 +175,7 @@ function ClientTable({type}) {
             {currentItems.map(client => (
               <tr key={client.id}>
                 <td className="w-[20%] p-2 border text-center ">
-                  <div className="flex gap-4 items-center">
+                  <div className="flex flex-col sm:flex-row gap-4 items-center">
                     <button 
                       onClick={() => deleteClient(client.id)}
                       className="cursor-pointer">
@@ -186,10 +188,12 @@ function ClientTable({type}) {
                       className="cursor-pointer">
                       <FaEdit />
                     </button>
-                    <p>{client.date}</p>
+                    <p className="order-first sm:order-none">{client.date}</p>
                   </div>
                 </td>
-                <td className="p-2 border text-center w-[7%]">{client.number}</td>
+                <td className="p-2 border text-center text-sm sm:w-[7%] sm:text-md">
+                  {client.number}
+                </td>
                 <td className="p-2 border text-center">{client.name}</td>
                 <td className="p-2 border text-center w-[12%]">{client.totalPrice}DA</td>
                 <td 
@@ -201,7 +205,7 @@ function ClientTable({type}) {
             ))}
           </tbody>
         </table>
-        <div className="mt-4 relative flex justify-center items-center gap-2">
+        <div className="mt-4 relative flex justify-center items-center gap-2 pb-12 sm:pb-2">
           <button 
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
@@ -221,9 +225,9 @@ function ClientTable({type}) {
           </button>
           <button
           onClick={exportFullDataToExcel}
-          className="absolute right-0 px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50
-          cursor-pointer"
-        >
+          className="absolute right-20 sm:right-0 bottom-0 px-4 py-2 bg-blue-300 rounded
+           hover:bg-blue-400 disabled:opacity-50cursor-pointer"
+          >
           Export To Excel
         </button>
         </div>

@@ -10,8 +10,8 @@ function Archive() {
             font-bold  hover:scale-125 transition duration-100
             ${darkMode ? "bg-blue-900 text-white hover:bg-blue-600" : "bg-blue-200 hover:bg-blue-100"}`
   return (
-    <div className={`flex flex-col justify-center items-center gap-4  p-2 shadow-md
-      rounded-lg w-[25%] ${darkMode ? "bg-blue-600" : "bg-white"}`} >
+    <div className={`mt-4 sm:mt-0 flex flex-col justify-center items-center gap-4  p-2 shadow-md
+      rounded-lg w-full md:w-[25%] ${darkMode ? "bg-blue-600" : "bg-white"}`} >
       <h2 className={`text-center text-2xl font-bold ${darkMode ? "text-white" : "text-black"}`}>
         Archive d'analyses
       </h2>
