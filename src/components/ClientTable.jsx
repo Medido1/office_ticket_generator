@@ -19,7 +19,8 @@ function ClientTable({type}) {
     resetState,
     handlePrint,
     ticketRef, 
-    darkMode} = useContext(GlobalContext)
+    darkMode, 
+    setPhoneNumber} = useContext(GlobalContext)
     
   const [fullData, setFullData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -169,6 +170,9 @@ function ClientTable({type}) {
               <th>
                 Reste a payé
               </th>
+              <th>
+                Telephone
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -201,6 +205,7 @@ function ClientTable({type}) {
                   p-2 border text-center w-[12%]`}>
                   {client.toPay}DA
                 </td>
+                <td className="p-2 border">{client.phoneNumber}</td>
               </tr>
             ))}
           </tbody>
@@ -252,6 +257,7 @@ function ClientTable({type}) {
               setShowForm= {setShowForm}
               setDisplayData = {setDisplayData}
               handlePrint={handlePrint}
+              setPhoneNumber={setPhoneNumber}
           /> 
           </div>
           <div className="hidden">

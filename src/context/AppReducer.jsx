@@ -36,6 +36,11 @@ function AppReducer(state, action)  {
       }
     case "RESET_STATE":
       return {...initialState}
+    case "SET_PHONE_NUMBER":
+      return {
+        ...state,
+        phoneNumber : action.payload
+      }
     default:
       return state;
   }

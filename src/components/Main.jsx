@@ -17,6 +17,7 @@ function Main() {
     handlePrint,
     ticketRef,
     darkMode,
+    setPhoneNumber
     } = useContext(GlobalContext)
 
   const {type, number, name, totalPrice, payedSum} = state;
@@ -34,6 +35,7 @@ function Main() {
         state = {state}
         handlePrint = {handlePrint}
         isEdit = {false}
+        setPhoneNumber = {setPhoneNumber}
       />
       <Ticket
         ref={ticketRef}

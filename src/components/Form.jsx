@@ -6,7 +6,7 @@ import safeParse from "../utilities/SafeParse";
 function Form({changeType, setNumber, setName,
    setTotalPrice, setPayedSum,resetState, state,
   handlePrint, currentClient,
-  isEdit, setShowForm, setDisplayData}) {
+  isEdit, setShowForm, setDisplayData, setPhoneNumber}) {
 
   const {darkMode} = useContext(GlobalContext)
 
@@ -41,7 +41,8 @@ function Form({changeType, setNumber, setName,
       date : currentDay,
       number : state.number,
       totalPrice: state.totalPrice,
-      toPay: state.totalPrice - state.payedSum
+      toPay: state.totalPrice - state.payedSum,
+      phoneNumber : state.phoneNumber,
     }
     const newData = [...data, info];
     setData(newData)
@@ -75,7 +76,8 @@ function Form({changeType, setNumber, setName,
       number: state.number,
       totalPrice: state.totalPrice,
       payedSum: state.payedSum,
-      toPay: state.totalPrice - state.payedSum
+      toPay: state.totalPrice - state.payedSum,
+      phoneNumber: state.phoneNumber
       }
       : client;
     }) 
@@ -178,6 +180,19 @@ return (
         type="number" min="0" id="payedSum" value={state.payedSum}
       />
     </div>
+    {isEdit && 
+      <div className="flex gap-4 items-center mt-4">
+        <label htmlFor="phoneNumber" className="w-[40%] sm:w-[25%]">
+          Telephone
+        </label>
+        <input 
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className={`p-2 rounded border-grey-300 focus:outline-none w-[34%]
+            focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
+          type="tel" min="0" id="phoneNumber" value={state.phoneNumber} autoComplete="off"
+        />
+      </div>
+    }
     <div className="flex justify-between">
       <button
         type="button"

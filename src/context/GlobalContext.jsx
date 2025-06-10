@@ -8,6 +8,7 @@ export const initialState = {
   name: "",
   totalPrice: "",
   payedSum: "",
+  phoneNumber: "//",
 }
 
 export const GlobalContext = createContext(initialState);
@@ -58,6 +59,10 @@ export const GlobalProvider = ({children}) => {
     dispatch({type:"RESET_STATE"})
   }
 
+  function setPhoneNumber(phoneNumber) {
+    dispatch({type: "SET_PHONE_NUMBER", payload: phoneNumber})
+  }
+
   return (
     <GlobalContext.Provider value = {{
       state,
@@ -70,7 +75,8 @@ export const GlobalProvider = ({children}) => {
       handlePrint, 
       ticketRef,
       darkMode, 
-      toggleDarkMode
+      toggleDarkMode,
+      setPhoneNumber
     }}>
       {children}
     </GlobalContext.Provider>
