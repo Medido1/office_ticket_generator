@@ -26,6 +26,7 @@ export const GlobalProvider = ({children}) => {
   /* handle mulitple entries */
   const [isMulti, setIsMulti] = useState(false);
   const [numberOfTests, setNumberOfTests] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
 
   /* dark mode */
   const [darkMode, setDarkMode] = useState(false);
@@ -84,7 +85,9 @@ export const GlobalProvider = ({children}) => {
       isMulti,
       setIsMulti,
       numberOfTests,
-      setNumberOfTests
+      setNumberOfTests,
+      totalPrice,
+      setTotalPrice
     }}>
       {children}
     </GlobalContext.Provider>

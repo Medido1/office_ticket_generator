@@ -10,7 +10,7 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
     day: `numeric`
   })
 
-  const {isMulti, numberOfTests} = useContext(GlobalContext);
+  const {isMulti, numberOfTests, totalPrice} = useContext(GlobalContext);
 
   return (
     <div 
@@ -56,7 +56,7 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
           Prix Total:
         </p>
         <p>
-          {UnitPrice}DA
+          {isMulti ? totalPrice ? totalPrice: "" : UnitPrice}DA
         </p>
       </div>
       <div className="self-start flex gap-4">
@@ -72,7 +72,7 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
           Reste a payer:
         </p>
         <p className="font-bold text-xl">
-          {UnitPrice - payedSum}DA
+          {isMulti ? totalPrice ? (totalPrice - payedSum): "" : UnitPrice - payedSum}DA
         </p>
       </div>
       <p className="text-sm text-center">

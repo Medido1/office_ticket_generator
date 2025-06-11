@@ -9,7 +9,8 @@ function Form({changeType, setNumber, setName,
   isEdit, setShowForm, setDisplayData, setPhoneNumber}) {
 
   const {darkMode, isMulti, setIsMulti,
-    numberOfTests, setNumberOfTests
+    numberOfTests, setNumberOfTests,
+    totalPrice, setTotalPrice
   } = useContext(GlobalContext)
 
   /* last number in multiple entries */
@@ -17,6 +18,10 @@ function Form({changeType, setNumber, setName,
 
   useEffect(() => {
     setLastNumber((parseInt(state.number) + parseInt(numberOfTests)) - 1)
+  }, [numberOfTests])
+
+  useEffect(() => {
+    setTotalPrice(parseInt(numberOfTests) * parseInt(state.UnitPrice))
   }, [numberOfTests])
 
   const buttonStyle = `block mx-auto px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
@@ -191,9 +196,10 @@ return (
       <label htmlFor="UnitPrice" className="w-[40%] sm:w-[25%]">
         Prix Total :
       </label>
-      <select  
+      {!isMulti &&
+        <select  
         onChange = {(e) => setUnitPrice(parseFloat(e.target.value) || 0)}
-        id="UnitPrice"
+        id={`${isMulti ? "totalPrice" : "UnitPrice"}`}
         className={`${darkMode ? "bg-black" : "bg-white"} p-2 
         ${isEdit ? `w-[24%]` : "w-[25%] sm:w-[20%]"}`}
         value={state.UnitPrice}>
@@ -202,6 +208,17 @@ return (
           <option value="1500">1500</option>
           <option value="1000">1000</option>
       </select>
+      }
+      {isMulti && !isEdit && 
+        <div>
+          <input 
+            className={`p-2 rounded border-grey-300 focus:outline-none
+              focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
+              w-[25%] sm:w-[40%]`}
+            value={totalPrice ? totalPrice : ""}
+            type="totalPrice" name="totalPrice" id="totalPrice" />
+        </div>
+      }
     </div>
     <div className="flex gap-4 items-center mt-4">
       <label htmlFor="payedSum" className="w-[40%] sm:w-[25%]">
