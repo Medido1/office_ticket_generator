@@ -80,6 +80,7 @@ function Form({changeType, setNumber, setName,
     setData(newData)
     localStorage.setItem("archiveData", JSON.stringify(newData))
     resetState();
+    setNumberOfTests("");
   }
 
   // When a currentClient is provided (e.g. editing an existing entry),
@@ -161,7 +162,7 @@ return (
         <option value="F.C.V">FCV</option>
       </select>
     </div>
-    {isMulti && 
+    {isMulti && !isEdit && 
       <div className="flex gap-4 mb-4">
         <label htmlFor="numberOfTests" className="w-[40%] sm:w-[25%]">
           Nombre des tests:
@@ -186,7 +187,7 @@ return (
         id="number"
         value={state.number} min="0"/>
     </div>
-    {isMulti && 
+    {isMulti && !isEdit &&
       <div className="flex gap-4 items-center mb-4">
         <label htmlFor="lastNumber" className="w-[40%] sm:w-[25%]">
           A :
@@ -215,7 +216,7 @@ return (
       <label htmlFor="UnitPrice" className="w-[40%] sm:w-[25%]">
         Prix Total :
       </label>
-      {!isMulti &&
+      {!isMulti && 
         <select  
         onChange = {(e) => setUnitPrice(parseFloat(e.target.value) || 0)}
         id={`${isMulti ? "totalPrice" : "UnitPrice"}`}
