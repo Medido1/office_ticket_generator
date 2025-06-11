@@ -21,7 +21,7 @@ function Form({changeType, setNumber, setName,
   }, [numberOfTests])
 
   useEffect(() => {
-    setTotalPrice(parseInt(numberOfTests) * parseInt(state.UnitPrice))
+    setTotalPrice(parseInt(numberOfTests) * 800) /* edge case for this lab  */
   }, [numberOfTests])
 
   const buttonStyle = `block mx-auto px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
