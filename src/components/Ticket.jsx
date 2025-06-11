@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 import phoneIcon from "../assets/phone-call.png";
+import {GlobalContext} from "../context/GlobalContext";
+import { useContext } from "react";
 
 const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
   const currentDay = new Date().toLocaleDateString(`fr-FR`, {
@@ -7,6 +9,8 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
     month: `long`,
     day: `numeric`
   })
+
+  const {isMulti, numberOfTests} = useContext(GlobalContext);
 
   return (
     <div 
@@ -30,12 +34,19 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
         <p className="text-lg">
           {currentDay}
         </p>
-        <p className="text-xl">
+        {!isMulti &&
+          <p className="text-xl">
           {type}
-        </p>
-        <p className="text-lg font-bold">
+          </p>
+        }
+        {!isMulti && 
+          <p className="text-lg font-bold">
           {number}
-        </p>
+          </p>
+        }
+        {isMulti &&
+          <p>{numberOfTests} {type}</p>
+        }
       </div>
       <p className="text-2xl text-center my-4 font-bold ">
           {name}

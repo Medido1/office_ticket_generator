@@ -8,7 +8,9 @@ function Form({changeType, setNumber, setName,
   handlePrint, currentClient,
   isEdit, setShowForm, setDisplayData, setPhoneNumber}) {
 
-  const {darkMode, isMulti, setIsMulti} = useContext(GlobalContext)
+  const {darkMode, isMulti, setIsMulti,
+    numberOfTests, setNumberOfTests
+  } = useContext(GlobalContext)
 
   const buttonStyle = `block mx-auto px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
     hover:scale-125 transition delay-150 ${darkMode ? "bg-black": "bg-white"}`
@@ -129,6 +131,19 @@ return (
         <option value="F.C.V">FCV</option>
       </select>
     </div>
+    {isMulti && 
+      <div className="flex gap-4 mb-4">
+        <label htmlFor="numberOfTests" className="w-[40%] sm:w-[25%]">
+          Nombre des tests:
+        </label>
+        <input 
+          className={`w-[25%] p-2 rounded border-grey-300 focus:outline-none
+            focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
+          type="number" name="numberOfTests" id="numberOfTests" 
+          min="0" value={numberOfTests} onChange={(e) => setNumberOfTests(e.target.value)}
+        />
+      </div>
+    }
     <div className="flex gap-4 items-center mb-4">
       <label htmlFor="number" className="w-[40%] sm:w-[25%]">
         Numero :

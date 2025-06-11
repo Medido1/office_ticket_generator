@@ -25,6 +25,7 @@ export const GlobalProvider = ({children}) => {
 
   /* handle mulitple entries */
   const [isMulti, setIsMulti] = useState(false);
+  const [numberOfTests, setNumberOfTests] = useState("");
 
   /* dark mode */
   const [darkMode, setDarkMode] = useState(false);
@@ -81,7 +82,9 @@ export const GlobalProvider = ({children}) => {
       toggleDarkMode,
       setPhoneNumber,
       isMulti,
-      setIsMulti
+      setIsMulti,
+      numberOfTests,
+      setNumberOfTests
     }}>
       {children}
     </GlobalContext.Provider>
