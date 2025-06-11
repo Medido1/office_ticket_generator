@@ -48,17 +48,35 @@ function Form({changeType, setNumber, setName,
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
     }
-    const info = {
-      id: crypto.randomUUID(),
-      type: state.type,
-      name: state.name,
-      date : currentDay,
-      number : state.number,
-      UnitPrice: state.UnitPrice,
-      toPay: state.UnitPrice - state.payedSum,
-      phoneNumber : state.phoneNumber,
+    let newData = [];
+    if (!isMulti) {
+      const info = {
+        id: crypto.randomUUID(),
+        type: state.type,
+        name: state.name,
+        date : currentDay,
+        number : state.number,
+        UnitPrice: state.UnitPrice,
+        toPay: state.UnitPrice - state.payedSum,
+        phoneNumber : state.phoneNumber,
+      }
+      newData = [...data, info];
+    } else {
+      for (let i = 0; i < numberOfTests; i++) {
+        const info = {
+          id: crypto.randomUUID(),
+          type: state.type,
+          name: state.name,
+          date: currentDay,
+          number :parseInt(state.number) + i,
+          UnitPrice : state.UnitPrice,
+          toPay: totalPrice - state.payedSum,
+          phoneNumber: state.phoneNumber
+        }
+        newData.push(info);
+      }
+      newData = [...data, ...newData];
     }
-    const newData = [...data, info];
     setData(newData)
     localStorage.setItem("archiveData", JSON.stringify(newData))
     resetState();
@@ -178,6 +196,7 @@ return (
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="lastNumber" 
         id="lastNumber"
+        readOnly
         value={lastNumber ? lastNumber : ""} min="0"/>
       </div>
       }
@@ -216,6 +235,7 @@ return (
               focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
               w-[25%] sm:w-[40%]`}
             value={totalPrice ? totalPrice : ""}
+            readOnly
             type="totalPrice" name="totalPrice" id="totalPrice" />
         </div>
       }
