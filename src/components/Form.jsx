@@ -8,7 +8,7 @@ function Form({changeType, setNumber, setName,
   handlePrint, currentClient,
   isEdit, setShowForm, setDisplayData, setPhoneNumber}) {
 
-  const {darkMode} = useContext(GlobalContext)
+  const {darkMode, isMulti, setIsMulti} = useContext(GlobalContext)
 
   const buttonStyle = `block mx-auto px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
     hover:scale-125 transition delay-150 ${darkMode ? "bg-black": "bg-white"}`
@@ -228,6 +228,15 @@ return (
           ${!isEdit ? "hidden" : "block"}`}
         >
         Cancel
+      </button>
+      <button
+        type="button"
+        onClick={() => setIsMulti(prev => !prev)}
+        className={`mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
+          hover:scale-125 transition delay-150
+          ${isEdit ? "hidden" : "block"}`}
+        >
+        Multiple
       </button>
     </div>
     </form>

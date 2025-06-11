@@ -23,6 +23,9 @@ export const GlobalProvider = ({children}) => {
     contentRef: ticketRef
   })
 
+  /* handle mulitple entries */
+  const [isMulti, setIsMulti] = useState(false);
+
   /* dark mode */
   const [darkMode, setDarkMode] = useState(false);
 
@@ -76,7 +79,9 @@ export const GlobalProvider = ({children}) => {
       ticketRef,
       darkMode, 
       toggleDarkMode,
-      setPhoneNumber
+      setPhoneNumber,
+      isMulti,
+      setIsMulti
     }}>
       {children}
     </GlobalContext.Provider>
