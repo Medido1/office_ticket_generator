@@ -12,6 +12,13 @@ function Form({changeType, setNumber, setName,
     numberOfTests, setNumberOfTests
   } = useContext(GlobalContext)
 
+  /* last number in multiple entries */
+  const [lastNumber, setLastNumber] = useState(0);
+
+  useEffect(() => {
+    setLastNumber((parseInt(state.number) + parseInt(numberOfTests)) - 1)
+  }, [numberOfTests])
+
   const buttonStyle = `block mx-auto px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
     hover:scale-125 transition delay-150 ${darkMode ? "bg-black": "bg-white"}`
 
@@ -156,6 +163,19 @@ return (
         id="number"
         value={state.number} min="0"/>
     </div>
+    {isMulti && 
+      <div className="flex gap-4 items-center mb-4">
+        <label htmlFor="lastNumber" className="w-[40%] sm:w-[25%]">
+          A :
+        </label>
+      <input 
+        className={`w-[25%] p-2 rounded border-grey-300 focus:outline-none
+          focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
+        type="lastNumber" 
+        id="lastNumber"
+        value={lastNumber ? lastNumber : ""} min="0"/>
+      </div>
+      }
     <div className="flex gap-4 items-center">
       <label htmlFor="name" className="w-[40%] sm:w-[25%]">
         Nom :
