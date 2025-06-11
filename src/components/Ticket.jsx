@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import phoneIcon from "../assets/phone-call.png";
 
-const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
+const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
   const currentDay = new Date().toLocaleDateString(`fr-FR`, {
     year: `numeric`,
     month: `long`,
@@ -45,7 +45,7 @@ const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
           Prix Total:
         </p>
         <p>
-          {totalPrice}DA
+          {UnitPrice}DA
         </p>
       </div>
       <div className="self-start flex gap-4">
@@ -61,7 +61,7 @@ const Ticket = forwardRef(({type, number, name, totalPrice, payedSum}, ref) => {
           Reste a payer:
         </p>
         <p className="font-bold text-xl">
-          {totalPrice - payedSum}DA
+          {UnitPrice - payedSum}DA
         </p>
       </div>
       <p className="text-sm text-center">

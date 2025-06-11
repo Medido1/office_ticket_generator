@@ -14,7 +14,7 @@ function ClientTable({type}) {
     changeType, 
     setNumber, 
     setName,
-    setTotalPrice,
+    setUnitPrice,
     setPayedSum,
     resetState,
     handlePrint,
@@ -199,7 +199,7 @@ function ClientTable({type}) {
                   {client.number}
                 </td>
                 <td className="p-2 border text-center">{client.name}</td>
-                <td className="p-2 border text-center w-[12%]">{client.totalPrice}DA</td>
+                <td className="p-2 border text-center w-[12%]">{client.UnitPrice}DA</td>
                 <td 
                   className={`${client.toPay === 0 ? "bg-green-400" :"bg-red-400"}
                   p-2 border text-center w-[12%]`}>
@@ -246,7 +246,7 @@ function ClientTable({type}) {
               changeType = {changeType}
               setNumber = {setNumber}
               setName = {setName}
-              setTotalPrice = {setTotalPrice}
+              setUnitPrice = {setUnitPrice}
               setPayedSum = {setPayedSum}
               resetState = {resetState}
               state = {state}
@@ -267,7 +267,7 @@ function ClientTable({type}) {
             type ={state.type}
             number = {state.number}
             name = {state.name}
-            totalPrice = {state.totalPrice}
+            UnitPrice = {state.UnitPrice}
             payedSum = {state.payedSum}
           />
           </div>

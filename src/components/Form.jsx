@@ -4,7 +4,7 @@ import { useContext } from "react";
 import safeParse from "../utilities/SafeParse";
 
 function Form({changeType, setNumber, setName,
-   setTotalPrice, setPayedSum,resetState, state,
+   setUnitPrice, setPayedSum,resetState, state,
   handlePrint, currentClient,
   isEdit, setShowForm, setDisplayData, setPhoneNumber}) {
 
@@ -26,7 +26,7 @@ function Form({changeType, setNumber, setName,
     });
 
   function isFormValid() {
-    return state.type && state.name && state.number && state.totalPrice 
+    return state.type && state.name && state.number && state.UnitPrice 
   }
 
   function saveInfo() {
@@ -40,8 +40,8 @@ function Form({changeType, setNumber, setName,
       name: state.name,
       date : currentDay,
       number : state.number,
-      totalPrice: state.totalPrice,
-      toPay: state.totalPrice - state.payedSum,
+      UnitPrice: state.UnitPrice,
+      toPay: state.UnitPrice - state.payedSum,
       phoneNumber : state.phoneNumber,
     }
     const newData = [...data, info];
@@ -58,8 +58,8 @@ function Form({changeType, setNumber, setName,
       changeType(currentClient.type)
       setName(currentClient.name);
       setNumber(currentClient.number);
-      setTotalPrice(currentClient.totalPrice);
-      setPayedSum(currentClient.totalPrice - currentClient.toPay);
+      setUnitPrice(currentClient.UnitPrice);
+      setPayedSum(currentClient.UnitPrice - currentClient.toPay);
     }
   }, [currentClient]);
 
@@ -74,9 +74,9 @@ function Form({changeType, setNumber, setName,
       type: state.type,
       name : state.name,
       number: state.number,
-      totalPrice: state.totalPrice,
+      UnitPrice: state.UnitPrice,
       payedSum: state.payedSum,
-      toPay: state.totalPrice - state.payedSum,
+      toPay: state.UnitPrice - state.payedSum,
       phoneNumber: state.phoneNumber
       }
       : client;
@@ -153,15 +153,15 @@ return (
       />
     </div>
     <div className="flex gap-4  items-center mt-4">
-      <label htmlFor="totalPrice" className="w-[40%] sm:w-[25%]">
+      <label htmlFor="UnitPrice" className="w-[40%] sm:w-[25%]">
         Prix Total :
       </label>
       <select  
-        onChange = {(e) => setTotalPrice(parseFloat(e.target.value) || 0)}
-        id="totalPrice"
+        onChange = {(e) => setUnitPrice(parseFloat(e.target.value) || 0)}
+        id="UnitPrice"
         className={`${darkMode ? "bg-black" : "bg-white"} p-2 
         ${isEdit ? `w-[24%]` : "w-[25%] sm:w-[20%]"}`}
-        value={state.totalPrice}>
+        value={state.UnitPrice}>
           <option value="2500">2500</option>
           <option value="2000">2000</option>
           <option value="1500">1500</option>

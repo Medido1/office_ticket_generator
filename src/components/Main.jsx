@@ -11,7 +11,7 @@ function Main() {
     changeType, 
     setNumber, 
     setName,
-    setTotalPrice,
+    setUnitPrice,
     setPayedSum,
     resetState,
     handlePrint,
@@ -20,7 +20,7 @@ function Main() {
     setPhoneNumber
     } = useContext(GlobalContext)
 
-  const {type, number, name, totalPrice, payedSum} = state;
+  const {type, number, name, UnitPrice, payedSum} = state;
 
   return (
     <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4  gap-4 flex-grow
@@ -29,7 +29,7 @@ function Main() {
         changeType = {changeType}
         setNumber = {setNumber}
         setName = {setName}
-        setTotalPrice = {setTotalPrice}
+        setUnitPrice = {setUnitPrice}
         setPayedSum = {setPayedSum}
         resetState = {resetState}
         state = {state}
@@ -42,7 +42,7 @@ function Main() {
         type = {type}
         number = {number}
         name = {name}
-        totalPrice = {totalPrice}
+        UnitPrice = {UnitPrice}
         payedSum = {payedSum}
       />
       <Archive />

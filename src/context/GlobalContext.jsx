@@ -6,7 +6,7 @@ export const initialState = {
   type: "",
   number: "",
   name: "",
-  totalPrice: "",
+  UnitPrice: "",
   payedSum: "",
   phoneNumber: "//",
 }
@@ -46,8 +46,8 @@ export const GlobalProvider = ({children}) => {
       type: "SET_NAME", payload: name})
   }
 
-  function setTotalPrice (totalPrice) {
-    dispatch({type: "SET_TOTAL_PRICE", payload: totalPrice})
+  function setUnitPrice (UnitPrice) {
+    dispatch({type: "SET_TOTAL_PRICE", payload: UnitPrice})
   }
 
   function setPayedSum (payedSum) {
@@ -69,7 +69,7 @@ export const GlobalProvider = ({children}) => {
       changeType,
       setNumber,
       setName,
-      setTotalPrice,
+      setUnitPrice,
       setPayedSum,
       resetState,
       handlePrint, 
