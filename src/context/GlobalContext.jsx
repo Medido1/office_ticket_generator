@@ -9,6 +9,7 @@ export const initialState = {
   UnitPrice: "",
   payedSum: "",
   phoneNumber: "//",
+  endDate: "",
 }
 
 export const GlobalContext = createContext(initialState);

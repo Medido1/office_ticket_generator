@@ -28,9 +28,7 @@ function Form({changeType, setNumber, setName,
     hover:scale-125 transition delay-150 ${darkMode ? "bg-black": "bg-white"}`
 
   const currentDay = useMemo(() => 
-    new Date().toLocaleDateString("fr-FR", {
-      year: "numeric", month: "long", day: "numeric"
-  }), []);
+    new Date(), []);
     
   const archiveData = localStorage.getItem("archiveData");
 
@@ -49,16 +47,32 @@ function Form({changeType, setNumber, setName,
       return;
     }
     let newData = [];
+    /* calculate endDate */
+    let daysLeft;
+    if (type === "Anapath") {
+      daysLeft = 12;
+    } else if (type === "CytoPonction"){
+      daysLeft = 1;
+    } else if (type === "F.C.V") {
+      daysLeft = 5
+    }
+    const endDate = new Date(currentDay)
+    /* endDate.setDate(endDate.getDate() + daysLeft) */
+    console.log(endDate)
+
     if (!isMulti) {
       const info = {
         id: crypto.randomUUID(),
         type: state.type,
         name: state.name,
-        date : currentDay,
+        date : currentDay.toLocaleDateString("fr-FR", {
+          year: "numeric", month: "long", day: "numeric"
+        }),
         number : state.number,
         UnitPrice: state.UnitPrice,
         toPay: state.UnitPrice - state.payedSum,
         phoneNumber : state.phoneNumber,
+        endDate: endDate,
       }
       newData = [...data, info];
     } else {
