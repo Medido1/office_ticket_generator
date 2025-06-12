@@ -49,15 +49,23 @@ function Form({changeType, setNumber, setName,
     let newData = [];
     /* calculate endDate */
     let daysLeft;
-    if (type === "Anapath") {
+    if (state.type === "Anapath") {
       daysLeft = 12;
-    } else if (type === "CytoPonction"){
+    } else if (state.type === "Cytoponction"){
       daysLeft = 1;
-    } else if (type === "F.C.V") {
+    } else if (state.type === "F.C.V") {
       daysLeft = 5
     }
+
+    /* create copy to calculate new date */
     const endDate = new Date(currentDay)
-    /* endDate.setDate(endDate.getDate() + daysLeft) */
+    endDate.setDate(endDate.getDate() + daysLeft);
+    const dayOfWeek = endDate.getDay();
+
+    /* if the resulting day if friday skip to saturday */
+    if (dayOfWeek === 5) {
+      endDate.setDate(endDate.getDate() +1)
+    }
     console.log(endDate)
 
     if (!isMulti) {
