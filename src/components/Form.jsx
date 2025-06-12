@@ -81,7 +81,9 @@ function Form({changeType, setNumber, setName,
           id: crypto.randomUUID(),
           type: state.type,
           name: state.name,
-          date: currentDay,
+          date: currentDay.toLocaleDateString("fr-FR", {
+            year: "numeric", month: "long", day: "numeric"
+          }),
           number :parseInt(state.number) + i,
           UnitPrice : state.UnitPrice,
           toPay: totalPrice - state.payedSum,
