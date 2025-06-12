@@ -7,6 +7,7 @@ import {GlobalContext} from "../context/GlobalContext";
 import Ticket from "./Ticket";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import MobileCard from "./MobileCard";
 
 function ClientTable({type}) {
   const {state, 
@@ -20,6 +21,19 @@ function ClientTable({type}) {
     ticketRef, 
     darkMode, 
     setPhoneNumber} = useContext(GlobalContext)
+
+  /* different desing for mobile view */
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    };
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   /* to navigate bewteen different pages */
   const location = useLocation();
@@ -41,7 +55,7 @@ function ClientTable({type}) {
 
   /* add pagination feature */
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 25;
+  const itemsPerPage = isMobile ? 10 : 25;
   const [currentItems, setCurrentItems] = useState([]);
 
   useEffect(() => {
@@ -152,6 +166,7 @@ function ClientTable({type}) {
         </div>
       </header>
       <main className="bg-gray-200 p-4">
+        {!isMobile && 
         <table className={`min-w-full border-2
           ${darkMode ? "bg-black border-blue-200 text-white" 
             : "bg-white border-blue-400 text-black"}`}>
@@ -211,7 +226,17 @@ function ClientTable({type}) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table>}
+        {isMobile && 
+          <ul>
+            {currentItems.map(item => (
+              <MobileCard 
+                key={item.id}
+                client = {item}  
+              />
+            ))}
+          </ul>
+        }
         <div className="mt-4 relative flex justify-center items-center gap-2 pb-12 sm:pb-2">
           <button 
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
