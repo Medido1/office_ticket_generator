@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import {GlobalContext} from "../context/GlobalContext";
 import safeParse from "../utilities/SafeParse";
 
@@ -16,13 +16,54 @@ function TodaysResults() {
     return safeParse(archiveData);
   });
 
-  const AnapathData = data.filter(item => item.type === "Anapath");
-  const CytoponctionData = data.filter(item => item.type === "Cytoponction");
-  const FCVData = data.filter(item => item.type === "F.C.V");
+  
+ 
+  const anapathToday = data.filter(
+    item => item.type === "Anapath" && item.endDate === currentDay
+  ); 
+  const CytoponctionToday = data.filter(
+    item => item.type === "Cytoponction" && item.endDate === currentDay
+  );
+  const FCVToday = data.filter(
+    item => item.type === "F.C.V" && item.endDate === currentDay
+  );
+    
   return (
     <div className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
-    px-4 py-8 sm:w-[40%]`}>
-
+    px-4 py-2 sm:w-[40%]`}>
+      <h1 className="text-2xl text-center font-bold">
+        Résultats {currentDay}
+      </h1>
+      <h2 className="text-xl font-bold border-b-2 border-black w-[20%]">
+        Anapath :
+      </h2>
+      <ul className="ml-2">
+        {anapathToday && anapathToday.map(item => 
+          <li key={item.id}>
+            <p>{item.number} {item.name}</p>
+          </li>
+        )}
+      </ul>
+      <h2 className="text-xl font-bold border-b-2 border-black w-[30%] mt-4">
+        Cytoponction :
+      </h2>
+      <ul className="ml-2">
+        {CytoponctionToday && CytoponctionToday.map(item => 
+          <li key={item.id}>
+            <p>{item.number} {item.name}</p>
+          </li>
+        )}
+      </ul>
+      <h2 className="text-xl font-bold border-b-2 border-black w-[10%] mt-4">
+        FCV :
+      </h2>
+      <ul className="ml-2">
+        {FCVToday && FCVToday.map(item => 
+          <li key={item.id}>
+            <p>{item.number} {item.name}</p>
+          </li>
+        )}
+      </ul>
     </div>
   )
 }
