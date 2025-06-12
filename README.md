@@ -18,7 +18,7 @@ This web application allows users to efficiently manage client records by viewin
 ### Screenshot
 
   ## Home Page and ticket generator
-  ![](./src/screenshots/HomePage.png)
+  ![](./src/screenshots/desktopscreenshot.png)
 
   ## DateBase
   ![](./src/screenshots/dataBase.png)
