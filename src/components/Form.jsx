@@ -158,7 +158,7 @@ function Form({changeType, setNumber, setName,
     const filterd = data.filter(client => client.type === e.target.value);
     let latestNumber;
     if (filterd.length === 0) {
-      latestNumber = 1;
+      latestNumber = 0;
     } else {
       latestNumber = Math.max(...filterd.map(item => (item.number)));
     }
@@ -273,7 +273,7 @@ return (
         onChange={(e) => setPayedSum(parseFloat(e.target.value) || 0)} 
         className={`p-2 rounded border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
-          ${isEdit ? `w-[24%]` : "sm:w-[25%]"}`}
+          ${isEdit ? `w-[24%]` : "w-[24%] sm:w-[25%]"}`}
         type="number" min="0" id="payedSum" value={state.payedSum}
       />
     </div>

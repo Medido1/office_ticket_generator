@@ -152,7 +152,7 @@ function ClientTable({type}) {
         </div>
       </header>
       <main className="bg-gray-200 p-4">
-        <table className={`min-w-full border-2 
+        <table className={`min-w-full border-2
           ${darkMode ? "bg-black border-blue-200 text-white" 
             : "bg-white border-blue-400 text-black"}`}>
           <thead className={`${darkMode ? "bg-blue-600" : "bg-blue-400"}`}>

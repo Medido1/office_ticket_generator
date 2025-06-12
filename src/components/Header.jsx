@@ -8,7 +8,7 @@ function Header() {
   const {darkMode, toggleDarkMode} = useContext(GlobalContext)
   return (
     <header className={`${darkMode ? "bg-black" : "bg-blue-300"}
-      p-4 flex justify-between items-center gap-4`}>
+      p-4 flex flex-col sm:flex-row justify-between items-center gap-4 `}>
       <h1 className={`text-2xl font-bold ${darkMode ? "text-white" : "text-black"}
       `}>
         Ticket Generator

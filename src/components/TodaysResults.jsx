@@ -34,7 +34,8 @@ function TodaysResults() {
       <h1 className="text-2xl text-center font-bold">
         Résultats {currentDay}
       </h1>
-      <h2 className="text-xl font-bold border-b-2 border-black w-[20%]">
+      <h2 className="text-lg sm:text-xl font-bold border-b-2
+       border-black w-[30%] sm:w-[20%]">
         Anapath :
       </h2>
       <ul className="ml-2">
@@ -44,7 +45,8 @@ function TodaysResults() {
           </li>
         )}
       </ul>
-      <h2 className="text-xl font-bold border-b-2 border-black w-[30%] mt-4">
+      <h2 className="text-lg sm:text-xl font-bold border-b-2 border-black 
+      w-[45%] sm:w-[30%] mt-4">
         Cytoponction :
       </h2>
       <ul className="ml-2">
@@ -54,7 +56,8 @@ function TodaysResults() {
           </li>
         )}
       </ul>
-      <h2 className="text-xl font-bold border-b-2 border-black w-[10%] mt-4">
+      <h2 className="text-lg sm:text-xl font-bold border-b-2 
+      border-black w-[16%] sm:w-[10%] mt-4">
         FCV :
       </h2>
       <ul className="ml-2">

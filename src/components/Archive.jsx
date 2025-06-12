@@ -10,7 +10,7 @@ function Archive() {
             font-bold  hover:scale-125 transition duration-100
             ${darkMode ? "bg-blue-900 text-white hover:bg-blue-600" : "bg-blue-200 hover:bg-blue-100"}`
   return (
-    <div className={`sm:mt-0 flex justify-center items-center gap-4`} >
+    <div className={`sm:mt-0 flex flex-col sm:flex-row justify-center items-center gap-4`} >
       <Link to='/anapath'>
         <button
           className={buttonStyle}>

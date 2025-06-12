@@ -24,7 +24,7 @@ function Main() {
   return (
     <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4 flex-grow
       flex-col  md:flex-row md:justify-center`}>
-      <section className="flex w-full gap-4">
+      <section className="flex flex-col sm:flex-row w-full gap-4">
         <Form
           changeType = {changeType}
           setNumber = {setNumber}
