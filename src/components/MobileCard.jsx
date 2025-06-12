@@ -1,6 +1,7 @@
 function MobileCard({client}) {
   return (
-    <div className="p-4 bg-white rounded-xl shadow-lg flex flex-col gap-2 mb-2">
+    <div className="p-4 bg-white rounded-xl shadow-lg flex flex-col 
+      gap-2 mb-2 w-[250px]">
       <div className="flex justify-between">
         <p>{client.date}</p>
         <p>N: {client.number}</p>

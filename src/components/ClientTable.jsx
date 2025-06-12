@@ -228,14 +228,14 @@ function ClientTable({type}) {
           </tbody>
         </table>}
         {isMobile && 
-          <ul>
+          <div className="flex flex-col items-center ">
             {currentItems.map(item => (
               <MobileCard 
                 key={item.id}
                 client = {item}  
               />
             ))}
-          </ul>
+          </div>
         }
         <div className="mt-4 relative flex justify-center items-center gap-2 pb-12 sm:pb-2">
           <button 
