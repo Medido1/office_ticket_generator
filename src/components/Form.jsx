@@ -66,7 +66,6 @@ function Form({changeType, setNumber, setName,
     if (dayOfWeek === 5) {
       endDate.setDate(endDate.getDate() +1)
     }
-    console.log(endDate)
 
     if (!isMulti) {
       const info = {
@@ -80,7 +79,9 @@ function Form({changeType, setNumber, setName,
         UnitPrice: state.UnitPrice,
         toPay: state.UnitPrice - state.payedSum,
         phoneNumber : state.phoneNumber,
-        endDate: endDate,
+        endDate: endDate.toLocaleDateString("fr-FR", {
+          year: "numeric", month: "long", day:"numeric"
+        }),
       }
       newData = [...data, info];
     } else {
