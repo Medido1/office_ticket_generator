@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import deleteIcon from "../assets/delete.png";
 import { FaEdit } from "react-icons/fa";
 import Form from "./Form";
@@ -7,7 +7,6 @@ import {GlobalContext} from "../context/GlobalContext";
 import Ticket from "./Ticket";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-
 
 function ClientTable({type}) {
   const {state, 
@@ -21,6 +20,9 @@ function ClientTable({type}) {
     ticketRef, 
     darkMode, 
     setPhoneNumber} = useContext(GlobalContext)
+
+  /* to navigate bewteen different pages */
+  const location = useLocation();
     
   const [fullData, setFullData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -64,7 +66,7 @@ function ClientTable({type}) {
       data = [];
     }
     setFullData(data);
-  }, [showForm])
+  }, [showForm, location])
 
   // Update filtered data when fullData changes
   useEffect(() => {

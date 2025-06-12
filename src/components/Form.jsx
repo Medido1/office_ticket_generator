@@ -1,6 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useContext } from "react";
 import {GlobalContext} from "../context/GlobalContext";
-import { useContext } from "react";
 import safeParse from "../utilities/SafeParse";
 
 function Form({changeType, setNumber, setName,
@@ -168,7 +167,7 @@ function Form({changeType, setNumber, setName,
 
 return (
   <form className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
-    px-4 py-8 ${isEdit ? `md:w-full` : "md:w-[40%]"} sm:w-full mb-2`}
+    px-4 py-8 ${isEdit ? `md:w-full` : "md:w-[30%]"} sm:w-full `}
     >
     <div className="flex gap-4 mb-4">
       <label htmlFor="type" className="w-[40%] sm:w-[25%]">
@@ -246,7 +245,7 @@ return (
         onChange = {(e) => setUnitPrice(parseFloat(e.target.value) || 0)}
         id={`${isMulti ? "totalPrice" : "UnitPrice"}`}
         className={`${darkMode ? "bg-black" : "bg-white"} p-2 
-        ${isEdit ? `w-[24%]` : "w-[25%] sm:w-[20%]"}`}
+        ${isEdit ? `w-[24%]` : "sm:w-[25%]"}`}
         value={state.UnitPrice}>
           <option value="2500">2500</option>
           <option value="2000">2000</option>
@@ -274,7 +273,7 @@ return (
         onChange={(e) => setPayedSum(parseFloat(e.target.value) || 0)} 
         className={`p-2 rounded border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
-          ${isEdit ? `w-[24%]` : "w-[25%] sm:w-[20%]"}`}
+          ${isEdit ? `w-[24%]` : "sm:w-[25%]"}`}
         type="number" min="0" id="payedSum" value={state.payedSum}
       />
     </div>
