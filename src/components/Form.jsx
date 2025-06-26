@@ -166,17 +166,17 @@ function Form({changeType, setNumber, setName,
   }
 
 return (
-  <form className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
-    px-4 py-8 ${isEdit ? `md:w-full` : "md:w-[30%]"} sm:w-full `}
+  <form className={`${darkMode ? "text-white form_dark" : "text-black form"} 
+    px-4 py-8 rounded-md ${isEdit ? `md:w-full` : "md:w-[30%]"} sm:w-full`}
     >
     <div className="flex gap-4 mb-4">
-      <label htmlFor="type" className="w-[40%] sm:w-[25%]">
+      <label htmlFor="type" className="w-[40%] sm:w-[27%] font-bold">
         Type d'analyses:
       </label>
       <select 
         onChange = {(e) => GetNextEnteryNumber(e)}
         id="type"
-        className={`${darkMode ? "bg-black" : "bg-white"}`}
+        className={`${darkMode ? "bg-black" : "bg-white"} rounded-lg`}
         value={state.type}
         disabled={isEdit}
       >
@@ -188,11 +188,11 @@ return (
     </div>
     {isMulti && !isEdit && 
       <div className="flex gap-4 mb-4">
-        <label htmlFor="numberOfTests" className="w-[40%] sm:w-[25%]">
+        <label htmlFor="numberOfTests" className="w-[40%] sm:w-[27%]">
           Nombre des tests:
         </label>
         <input 
-          className={`w-[25%] p-2 rounded border-grey-300 focus:outline-none
+          className={`w-[27%] p-2 rounded border-grey-300 focus:outline-none
             focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
           type="number" name="numberOfTests" id="numberOfTests" 
           min="0" value={numberOfTests} onChange={(e) => setNumberOfTests(e.target.value)}
@@ -200,12 +200,12 @@ return (
       </div>
     }
     <div className="flex gap-4 items-center mb-4">
-      <label htmlFor="number" className="w-[40%] sm:w-[25%]">
+      <label htmlFor="number" className="w-[40%] sm:w-[27%] font-bold">
         Numero :
       </label>
       <input 
         onChange={(e) => setNumber(e.target.value)}
-        className={`w-[25%] p-2 rounded border-grey-300 focus:outline-none
+        className={`w-[27%] p-2 rounded-lg border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="number" 
         id="number"
@@ -213,11 +213,11 @@ return (
     </div>
     {isMulti && !isEdit &&
       <div className="flex gap-4 items-center mb-4">
-        <label htmlFor="lastNumber" className="w-[40%] sm:w-[25%]">
+        <label htmlFor="lastNumber" className="w-[40%] sm:w-[27%]">
           A :
         </label>
       <input 
-        className={`w-[25%] p-2 rounded border-grey-300 focus:outline-none
+        className={`w-[27%] p-2 rounded border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="lastNumber" 
         id="lastNumber"
@@ -226,26 +226,26 @@ return (
       </div>
       }
     <div className="flex gap-4 items-center">
-      <label htmlFor="name" className="w-[40%] sm:w-[25%]">
+      <label htmlFor="name" className="w-[40%] sm:w-[27%] font-bold">
         Nom :
       </label>
       <input
         onChange={(e) => setName(e.target.value)} 
-        className={`w-[50%] sm:w-[40%]  p-2 rounded border-grey-300 focus:outline-none
+        className={`w-[50%] sm:w-[40%]  p-2 rounded-lg border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="text" id="name" autoComplete="off" value={state.name}
       />
     </div>
     <div className="flex gap-4  items-center mt-4">
-      <label htmlFor="UnitPrice" className="w-[40%] sm:w-[25%]">
+      <label htmlFor="UnitPrice" className="w-[40%] sm:w-[27%] font-bold">
         Prix Total :
       </label>
       {!isMulti && 
         <select  
         onChange = {(e) => setUnitPrice(parseFloat(e.target.value) || 0)}
         id={`${isMulti ? "totalPrice" : "UnitPrice"}`}
-        className={`${darkMode ? "bg-black" : "bg-white"} p-2 
-        ${isEdit ? `w-[24%]` : "sm:w-[25%]"}`}
+        className={`${darkMode ? "bg-black" : "bg-white"} p-2 rounded-lg
+        ${isEdit ? `w-[24%]` : "sm:w-[27%]"}`}
         value={state.UnitPrice}>
           <option value="2500">2500</option>
           <option value="2000">2000</option>
@@ -258,7 +258,7 @@ return (
           <input 
             className={`p-2 rounded border-grey-300 focus:outline-none
               focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
-              w-[25%] sm:w-[40%]`}
+              w-[27%] sm:w-[40%]`}
             value={totalPrice ? totalPrice : ""}
             readOnly
             type="totalPrice" name="totalPrice" id="totalPrice" />
@@ -266,20 +266,20 @@ return (
       }
     </div>
     <div className="flex gap-4 items-center mt-4">
-      <label htmlFor="payedSum" className="w-[40%] sm:w-[25%]">
+      <label htmlFor="payedSum" className="w-[40%] sm:w-[27%] font-bold">
         Prix payée :
       </label>
       <input
         onChange={(e) => setPayedSum(parseFloat(e.target.value) || 0)} 
-        className={`p-2 rounded border-grey-300 focus:outline-none
+        className={`p-2 rounded-lg border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
-          ${isEdit ? `w-[24%]` : "w-[24%] sm:w-[25%]"}`}
+          ${isEdit ? `w-[24%]` : "w-[24%] sm:w-[27%]"}`}
         type="number" min="0" id="payedSum" value={state.payedSum}
       />
     </div>
     {isEdit && 
       <div className="flex gap-4 items-center mt-4">
-        <label htmlFor="phoneNumber" className="w-[40%] sm:w-[25%]">
+        <label htmlFor="phoneNumber" className="w-[40%] sm:w-[27%]">
           Telephone
         </label>
         <input 
@@ -290,7 +290,7 @@ return (
         />
       </div>
     }
-    <div className="flex justify-between">
+    <div className="flex justify-between mt-4">
       <button
         type="button"
         onClick={() => {
@@ -329,14 +329,12 @@ return (
       <button
         type="button"
         onClick={() => setIsMulti(prev => !prev)}
-        className={`mx-auto bg-white px-4 py-2 rounded-full mt-4 shadow-lg cursor-pointer
-          hover:scale-125 transition delay-150
-          ${isEdit ? "hidden" : "block"}`}
+        className={buttonStyle}
         >
         Multiple
       </button>
     </div>
-    </form>
+  </form>
   )
 }
 

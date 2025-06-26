@@ -29,8 +29,8 @@ function TodaysResults() {
   );
     
   return (
-    <div className={`${darkMode ? "bg-blue-600 text-white" : "bg-blue-200 text-black"} 
-    px-4 py-2 sm:w-[40%]`}>
+    <div className={`${darkMode ? " text-white results_dark" : "bg-blue-200 results"} 
+    px-4 py-2 sm:flex-grow rounded-lg`}>
       <h1 className="text-2xl text-center font-bold">
         Résultats {currentDay}
       </h1>

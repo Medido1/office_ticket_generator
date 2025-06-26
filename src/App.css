@@ -7,3 +7,21 @@
     page-break-inside: avoid;
   }
 }
+/* bg colors */
+.header {
+  background: linear-gradient(to top right, #bfdbfe, #60a5fa, #2563eb);
+}
+
+.header_dark {
+  background: radial-gradient(ellipse at center, #e5e7eb, #292524);
+}
+
+.form,
+.results {
+  background: linear-gradient(to bottom right, #bfdbfe, #60a5fa, #2563eb);
+}
+
+.form_dark,
+.results_dark {
+  background: radial-gradient(ellipse at center, #e5e7eb, #292524);
+}

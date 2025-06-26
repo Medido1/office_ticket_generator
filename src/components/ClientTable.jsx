@@ -267,7 +267,7 @@ function ClientTable({type}) {
       {showForm && 
         <div>
           <div className="fixed inset-0 bg-black/25 z-40"></div>
-          <div className="absolute top-[20%] left-[35%] bg-gray-200 z-40
+          <div className="absolute top-[10%] left-[35%]  z-40
               p-4 rounded-2xl">
             <Form 
               changeType = {changeType}
