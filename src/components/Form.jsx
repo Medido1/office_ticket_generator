@@ -326,13 +326,15 @@ return (
         >
         Cancel
       </button>
-      <button
-        type="button"
-        onClick={() => setIsMulti(prev => !prev)}
-        className={buttonStyle}
+      {!isEdit && 
+        <button
+          type="button"
+          onClick={() => setIsMulti(prev => !prev)}
+          className={buttonStyle}
         >
-        Multiple
-      </button>
+          Multiple
+        </button>
+      }
     </div>
   </form>
   )
