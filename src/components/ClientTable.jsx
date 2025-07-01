@@ -156,6 +156,37 @@ function ClientTable({type}) {
     setFullData(updatedData)
   }
 
+  /* import data */
+  function handleImportExcel(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+  
+    const reader = new FileReader();
+  
+    reader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+  
+      const worksheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[worksheetName];
+  
+      const jsonData = XLSX.utils.sheet_to_json(worksheet);
+      
+      // Optional: validate structure
+      if (!jsonData[0]?.name || !jsonData[0]?.UnitPrice) {
+        alert("Invalid file format.");
+        return;
+      }
+  
+      // Save to localStorage and refresh display
+      localStorage.setItem("archiveData", JSON.stringify(jsonData));
+      setFullData(jsonData);
+      alert("Data imported successfully!");
+    };
+  
+    reader.readAsArrayBuffer(file);
+  }
+
   return (
     <div className="flex-grow">
       <header className={`flex flex-col sm:flex-row gap-4 justify-center sm:justify-between 
@@ -287,13 +318,24 @@ function ClientTable({type}) {
           >
             Next
           </button>
-          <button
-          onClick={exportFullDataToExcel}
-          className="absolute right-20 sm:right-0 bottom-0 px-4 py-2 bg-blue-300 rounded
-           hover:bg-blue-400 disabled:opacity-50cursor-pointer"
-          >
-          Export To Excel
-        </button>
+          <div className="absolute right-20 sm:right-0 bottom-0 flex items-center gap-4">
+            <button
+              onClick={exportFullDataToExcel}
+              className=" bg-blue-300 rounded px-4 py-2
+              hover:bg-blue-400 disabled:opacity-50 cursor-pointer"
+              >
+              Export To Excel
+            </button>
+            <div className=" bg-blue-300 rounded px-4 py-2
+              hover:bg-blue-400 disabled:opacity-50">
+              <label htmlFor="import" className="cursor-pointer">Import</label>
+              <input
+                type="file" id="import" accept=".xlsx, .xls"
+                style={{display: "none"}}
+                onChange={handleImportExcel}
+              />
+            </div>
+          </div>
         </div>
       </main>
       {showForm && 

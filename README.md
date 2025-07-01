@@ -13,7 +13,7 @@
 
 ### Discription
 
-This web application allows users to efficiently manage client records by viewing, searching, editing, and deleting client data, Users can update client details via an editable form and export the entire client archive to an Excel file for offline use.The interface supports dark mode for comfortable viewing and includes print-ready ticket generation. Built with React and enhanced with localStorage for persistent data storage, it ensures seamless client data management in a clean design.
+This web application allows users to efficiently manage client records by viewing, searching, editing, and deleting client data, Users can update client details via an editable form and export the entire client archive to an Excel file for offline use.The interface supports dark mode for comfortable viewing and includes print-ready ticket generation. Built with React and enhanced with localStorage for persistent data storage,offline workflow supported with PWA, it ensures seamless client data management in a clean design.
 
 ### Screenshot
 
