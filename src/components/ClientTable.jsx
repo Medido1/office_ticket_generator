@@ -65,6 +65,13 @@ function ClientTable({type}) {
   }, [displayData, currentPage]);
   
   const totalPages = Math.ceil(displayData.length / itemsPerPage);
+  /* start display from last page */
+  useEffect(() => {
+    if (displayData.length > 0) {
+      const lastPage = Math.ceil(displayData.length / itemsPerPage)
+      setCurrentPage(lastPage)
+    }
+  }, [displayData])
   
   useEffect(() => {
     let data = [];
@@ -137,7 +144,6 @@ function ClientTable({type}) {
   }
 
   /* set checked results */
-  
   function checkAsCompleted(id) {
     const updatedData = fullData.map((client) => {
       return client.id === id ? 
@@ -149,7 +155,7 @@ function ClientTable({type}) {
     localStorage.setItem("archiveData", JSON.stringify(updatedData));
     setFullData(updatedData)
   }
-  
+
   return (
     <div className="flex-grow">
       <header className={`flex flex-col sm:flex-row gap-4 justify-center sm:justify-between 
