@@ -135,6 +135,20 @@ function ClientTable({type}) {
   
     saveAs(fileData, `archive_fullData_${new Date().toISOString().slice(0, 10)}.xlsx`);
   }
+
+  /* set checked results */
+  
+  function checkAsCompleted(id) {
+    const updatedData = fullData.map((client) => {
+      return client.id === id ? 
+      {...client,
+        checked: !client.checked,
+      } 
+      : client;
+    })
+    localStorage.setItem("archiveData", JSON.stringify(updatedData));
+    setFullData(updatedData)
+  }
   
   return (
     <div className="flex-grow">
@@ -179,6 +193,9 @@ function ClientTable({type}) {
                 Numero
               </th>
               <th>
+                Sortie
+              </th>
+              <th>
                 Nom
               </th>
               <th>
@@ -214,6 +231,15 @@ function ClientTable({type}) {
                 </td>
                 <td className="p-2 border text-center text-sm sm:w-[7%] sm:text-md">
                   {client.number}
+                </td>
+                <td className="p-2 border text-center">
+                  <label className="custom-checkbox">
+                    <input 
+                      type="checkbox" 
+                      checked= {client.checked}
+                      onChange={() => checkAsCompleted(client.id)}/>
+                    <span className="checkmark"></span>
+                  </label>
                 </td>
                 <td className="p-2 border text-center">{client.name}</td>
                 <td className="p-2 border text-center w-[12%]">{client.UnitPrice}DA</td>
