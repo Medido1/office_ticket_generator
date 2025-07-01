@@ -22,7 +22,7 @@ function ClientTable({type}) {
     darkMode, 
     setPhoneNumber} = useContext(GlobalContext)
 
-  /* different desing for mobile view */
+  /* different design for mobile view */
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -67,10 +67,9 @@ function ClientTable({type}) {
   const totalPages = Math.ceil(displayData.length / itemsPerPage);
   /* start display from last page */
   useEffect(() => {
-    if (displayData.length > 0) {
-      const lastPage = Math.ceil(displayData.length / itemsPerPage)
-      setCurrentPage(lastPage)
-    }
+    if (displayData.length === 0 || searchTerm !== "") return 
+    const lastPage = Math.ceil(displayData.length / itemsPerPage)
+    setCurrentPage(lastPage)
   }, [displayData])
   
   useEffect(() => {
@@ -94,9 +93,9 @@ function ClientTable({type}) {
     const filtered = fullData.filter(item => item && item.type === type);
     setFilteredData(filtered);
     setDisplayData(filtered)
-    setCurrentPage(1);
   }, [fullData]);
 
+  /* show search results */
   useEffect(() =>  {
     if (searchTerm.trim() === ""){
       setDisplayData(filteredData)
@@ -105,9 +104,9 @@ function ClientTable({type}) {
         client.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setDisplayData(searchData);
+      setCurrentPage(1)
     }
-    setCurrentPage(1);
-  }, [searchTerm, filteredData])
+  }, [searchTerm])
 
   function deleteClient(id) {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer cet enregistrement ?")) {
