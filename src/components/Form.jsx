@@ -12,6 +12,8 @@ function Form({changeType, setNumber, setName,
     totalPrice, setTotalPrice
   } = useContext(GlobalContext)
 
+  const editFormClass = `fixed max-w-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`
+
   /* last number in multiple entries */
   const [lastNumber, setLastNumber] = useState(0);
 
@@ -146,13 +148,11 @@ function Form({changeType, setNumber, setName,
   }
 
   /* cancel editing */
-
   function cancelEdit(){
     setShowForm(false)
   }
 
   /* get last entry number and update form number to next entery */
-
   function GetNextEnteryNumber(e) {
     changeType(e.target.value);
     const filterd = data.filter(client => client.type === e.target.value);
@@ -167,7 +167,7 @@ function Form({changeType, setNumber, setName,
 
 return (
   <form className={`${darkMode ? "text-white form_dark" : "text-black form"} 
-    px-4 py-8 rounded-md ${isEdit ? `md:w-full` : "md:w-[30%]"} sm:w-full`}
+    px-4 py-8 rounded-md sm:w-full ${isEdit ? editFormClass : ""}`}
     >
     <div className="flex gap-4 mb-4">
       <label htmlFor="type" className="w-[40%] sm:w-[27%] font-bold">
