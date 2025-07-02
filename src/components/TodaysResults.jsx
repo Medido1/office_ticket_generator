@@ -16,16 +16,14 @@ function TodaysResults() {
     return safeParse(archiveData);
   });
 
-  
- 
   const anapathToday = data.filter(
-    item => item.type === "Anapath" && item.endDate === currentDay
+    item => item.type === "Anapath" && item.endDate === currentDay && !item.checked
   ); 
   const CytoponctionToday = data.filter(
-    item => item.type === "Cytoponction" && item.endDate === currentDay
+    item => item.type === "Cytoponction" && item.endDate === currentDay && !item.checked
   );
   const FCVToday = data.filter(
-    item => item.type === "F.C.V" && item.endDate === currentDay
+    item => item.type === "F.C.V" && item.endDate === currentDay && !item.checked
   );
     
   return (
