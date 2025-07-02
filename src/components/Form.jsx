@@ -167,7 +167,7 @@ function Form({changeType, setNumber, setName,
 
 return (
   <form className={`${darkMode ? "text-white form_dark" : "text-black form"} 
-    px-4 py-8 rounded-md sm:w-full ${isEdit ? editFormClass : ""}`}
+    px-4 py-8 rounded-md sm:w-full md:w-[30%] ${isEdit ? editFormClass : ""}`}
     >
     <div className="flex gap-4 mb-4">
       <label htmlFor="type" className="w-[40%] sm:w-[27%] font-bold">
