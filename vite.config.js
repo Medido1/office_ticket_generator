@@ -10,7 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       navigateFallback: '/index.html',
       globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-      includeAssets: ['microscope.png'],
+      includeAssets: 
+      ['microscope.png', 'delete.png',
+        'edited.png', 'telephone.png' ],
       manifest: {
         name: "Ticket Generator",
         start_url: '/',
