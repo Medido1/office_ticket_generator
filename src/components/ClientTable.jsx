@@ -67,12 +67,6 @@ function ClientTable({ type }) {
   }, [displayData, currentPage]);
 
   const totalPages = Math.ceil(displayData.length / itemsPerPage);
-  /* start display from last page */
-  useEffect(() => {
-    if (displayData.length === 0 || searchTerm !== "") return;
-    const lastPage = Math.ceil(displayData.length / itemsPerPage);
-    setCurrentPage(lastPage);
-  }, [displayData]);
 
   useEffect(() => {
     let data = [];
@@ -88,7 +82,12 @@ function ClientTable({ type }) {
       data = [];
     }
     setFullData(data);
-  }, [showForm, location]);
+
+    //  Set to last page only when data is loaded fresh
+    const filtered = data.filter((item) => item && item.type === type);
+    const lastPage = Math.ceil(filtered.length / itemsPerPage);
+    setCurrentPage(lastPage);
+  }, [location]);
 
   // Update filtered data when fullData changes
   useEffect(() => {
