@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import deleteIcon from "../assets/delete.png";
-import { FaEdit } from "react-icons/fa";
+import deleteIcon from "/delete.png";
+import editIcon from "/editer.png"
 import Form from "./Form";
 import { GlobalContext } from "../context/GlobalContext";
 import Ticket from "./Ticket";
@@ -275,7 +275,11 @@ function ClientTable({ type }) {
                         onClick={() => editClient(client.id)}
                         className="cursor-pointer"
                       >
-                        <FaEdit />
+                        <img 
+                          className="w-5"
+                          src={editIcon} 
+                          alt="edit icon"
+                        />
                       </button>
                       <p className="order-first sm:order-none">{client.date}</p>
                     </div>

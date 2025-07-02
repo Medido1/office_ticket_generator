@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import phoneIcon from "../assets/phone-call.png";
+import phoneIcon from "/telephone.png";
 import {GlobalContext} from "../context/GlobalContext";
 import { useContext } from "react";
 
