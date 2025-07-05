@@ -48,9 +48,14 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
           <p>{numberOfTests} {type}</p>
         }
       </div>
-      <p className="text-2xl text-center my-4 font-bold ">
+      <p className="text-2xl text-center my-2 font-bold ">
           {name}
       </p>
+      {isMulti && number &&
+        <p className="text-2xl">
+          du {number} a {(parseInt(number) + parseInt(numberOfTests)) - 1}
+        </p>
+      }
       <div className="self-start flex gap-4">
         <p>
           Prix Total:
