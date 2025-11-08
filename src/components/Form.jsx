@@ -247,10 +247,10 @@ return (
         className={`${darkMode ? "bg-black" : "bg-white"} p-2 rounded-lg
         ${isEdit ? `w-[24%]` : "sm:w-[27%]"}`}
         value={state.UnitPrice}>
-          <option value="2500">2500</option>
-          <option value="2000">2000</option>
-          <option value="1500">1500</option>
           <option value="1000">1000</option>
+          <option value="1500">1500</option>
+          <option value="2000">2000</option>
+          <option value="2500">2500</option>
           <option value="4000">4000</option>
       </select>
       }
