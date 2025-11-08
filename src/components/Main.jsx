@@ -2,7 +2,7 @@ import Form from "./Form";
 import Ticket from "./Ticket";
 import { useContext, useEffect, useState } from "react";
 import {GlobalContext} from "../context/GlobalContext";
-import Archive from "./Archive";
+
 import TodaysResults from "./TodaysResults";
 
 function Main() {
@@ -20,10 +20,10 @@ function Main() {
     } = useContext(GlobalContext)
 
   const {type, number, name, UnitPrice, payedSum} = state;
-
+  
   return (
     <main className={`${darkMode ? "bg-gray-400" : "bg-gray-200"} p-4 flex-grow
-      flex-col  md:flex-row md:justify-center`}>
+      flex-col md:flex-row md:justify-center`}>
       <section className="flex flex-col sm:flex-row w-full gap-4">
         <Form
           changeType = {changeType}
