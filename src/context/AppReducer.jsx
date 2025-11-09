@@ -12,7 +12,7 @@ function AppReducer(state, action)  {
       return {
         ...state,
         type: action.payload,
-        UnitPrice: priceMap[action.payload] || "",
+        price: priceMap[action.payload] || "",
       };
     case "SET_NUMBER":
       return {
@@ -22,12 +22,12 @@ function AppReducer(state, action)  {
     case "SET_NAME":
       return {
         ...state,
-        name: action.payload
+        fullName: action.payload
       }
     case "SET_TOTAL_PRICE":
       return {
         ...state,
-        UnitPrice : action.payload
+        price : action.payload
       }
     case "SET_PAYED_SUM":
       return {

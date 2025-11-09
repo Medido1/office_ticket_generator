@@ -6,9 +6,9 @@ function MobileCard({client}) {
         <p>{client.date}</p>
         <p>N: {client.number}</p>
       </div>
-      <p className="text-lg text-center">{client.name}</p>
+      <p className="text-lg text-center">{client.fullName}</p>
       <div className="flex flex-col items-center">
-        <p>Prix Total: {client.UnitPrice}DA</p>
+        <p>Prix Total: {client.price}DA</p>
         <p>Reste a payé: {client.toPay}DA</p>
       </div>
       <p className="text-center">{client.phoneNumber}</p>

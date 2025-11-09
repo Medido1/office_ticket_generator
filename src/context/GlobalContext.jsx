@@ -5,8 +5,8 @@ import AppReducer from "./AppReducer";
 export const initialState = {
   type: "",
   number: "",
-  name: "",
-  UnitPrice: "",
+  fullName: "",
+  price: "",
   payedSum: "",
   phoneNumber: "//",
   endDate: "",
@@ -20,7 +20,7 @@ export const GlobalProvider = ({children}) => {
 
   const ticketRef = useRef();
   const handlePrint = useReactToPrint({
-    documentTitle: `${state.name}`,
+    documentTitle: `${state.fullName}`,
     contentRef: ticketRef
   })
 
@@ -47,13 +47,13 @@ export const GlobalProvider = ({children}) => {
       type: "SET_NUMBER", payload: number})
   }
 
-  function setName (name) {
+  function setName (fullName) {
     dispatch({
-      type: "SET_NAME", payload: name})
+      type: "SET_NAME", payload: fullName})
   }
 
-  function setUnitPrice (UnitPrice) {
-    dispatch({type: "SET_TOTAL_PRICE", payload: UnitPrice})
+  function setPrice (price) {
+    dispatch({type: "SET_TOTAL_PRICE", payload: price})
   }
 
   function setPayedSum (payedSum) {
@@ -75,7 +75,7 @@ export const GlobalProvider = ({children}) => {
       changeType,
       setNumber,
       setName,
-      setUnitPrice,
+      setPrice,
       setPayedSum,
       resetState,
       handlePrint, 

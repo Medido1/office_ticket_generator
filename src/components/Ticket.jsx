@@ -3,7 +3,7 @@ import phoneIcon from "/telephone.png";
 import {GlobalContext} from "../context/GlobalContext";
 import { useContext } from "react";
 
-const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
+const Ticket = forwardRef(({type, number, fullName, price, payedSum}, ref) => {
   const currentDay = new Date().toLocaleDateString(`fr-FR`, {
     year: `numeric`,
     month: `long`,
@@ -49,7 +49,7 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
         }
       </div>
       <p className="text-2xl text-center my-2 font-bold ">
-          {name}
+          {fullName}
       </p>
       {isMulti && number &&
         <p className="text-2xl">
@@ -61,7 +61,7 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
           Prix Total:
         </p>
         <p>
-          {isMulti ? totalPrice ? totalPrice: "" : UnitPrice}DA
+          {isMulti ? totalPrice ? totalPrice: "" : price}DA
         </p>
       </div>
       <div className="self-start flex gap-4">
@@ -77,7 +77,7 @@ const Ticket = forwardRef(({type, number, name, UnitPrice, payedSum}, ref) => {
           Reste a payer:
         </p>
         <p className="font-bold text-xl">
-          {isMulti ? totalPrice ? (totalPrice - payedSum): "" : UnitPrice - payedSum}DA
+          {isMulti ? totalPrice ? (totalPrice - payedSum): "" : price - payedSum}DA
         </p>
       </div>
       <p className="text-sm text-center">

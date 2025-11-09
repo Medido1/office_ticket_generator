@@ -15,7 +15,7 @@ function ClientTable({ type }) {
     changeType,
     setNumber,
     setName,
-    setUnitPrice,
+    setPrice,
     setPayedSum,
     resetState,
     handlePrint,
@@ -102,7 +102,7 @@ function ClientTable({ type }) {
       setDisplayData(filteredData);
     } else {
       const searchData = filteredData.filter((client) =>
-        client.name.toLowerCase().includes(searchTerm.toLowerCase())
+        client.fullName.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setDisplayData(searchData);
       setCurrentPage(1);
@@ -180,7 +180,7 @@ function ClientTable({ type }) {
       }));
 
       // Optional: validate structure
-      if (!jsonData[0]?.name || !jsonData[0]?.UnitPrice) {
+      if (!jsonData[0]?.fullName || !jsonData[0]?.price) {
         alert("Invalid file format.");
         return;
       }
@@ -296,9 +296,9 @@ function ClientTable({ type }) {
                       <span className="checkmark"></span>
                     </label>
                   </td>
-                  <td className="p-2 border text-center">{client.name}</td>
+                  <td className="p-2 border text-center">{client.fullName}</td>
                   <td className="p-2 border text-center w-[12%]">
-                    {client.UnitPrice}DA
+                    {client.price}DA
                   </td>
                   <td
                     className={`${
@@ -380,7 +380,7 @@ function ClientTable({ type }) {
               changeType={changeType}
               setNumber={setNumber}
               setName={setName}
-              setUnitPrice={setUnitPrice}
+              setPrice={setPrice}
               setPayedSum={setPayedSum}
               resetState={resetState}
               state={state}
@@ -401,7 +401,7 @@ function ClientTable({ type }) {
               type={state.type}
               number={state.number}
               name={state.name}
-              UnitPrice={state.UnitPrice}
+              price={state.price}
               payedSum={state.payedSum}
             />
           </div>

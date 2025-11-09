@@ -3,7 +3,7 @@ import {GlobalContext} from "../context/GlobalContext";
 import safeParse from "../utilities/SafeParse";
 
 function Form({changeType, setNumber, setName,
-   setUnitPrice, setPayedSum,resetState, state,
+   setPrice, setPayedSum,resetState, state,
   handlePrint, currentClient,
   isEdit, setShowForm, setDisplayData, setPhoneNumber}) {
 
@@ -36,10 +36,10 @@ function Form({changeType, setNumber, setName,
   const [data, setData] = useState(() => {
     if (!archiveData) return [];
     return safeParse(archiveData);
-    });
+  });
 
   function isFormValid() {
-    return state.type && state.name && state.number && state.UnitPrice 
+    return state.type && state.fullName && state.number && state.price 
   }
 
   function saveInfo() {
@@ -72,13 +72,13 @@ function Form({changeType, setNumber, setName,
       const info = {
         id: crypto.randomUUID(),
         type: state.type,
-        name: state.name,
+        fullName: state.fullName,
         date : currentDay.toLocaleDateString("fr-FR", {
           year: "numeric", month: "long", day: "numeric"
         }),
         number : state.number,
-        UnitPrice: state.UnitPrice,
-        toPay: state.UnitPrice - state.payedSum,
+        price: state.price,
+        toPay: state.price - state.payedSum,
         phoneNumber : state.phoneNumber,
         endDate: endDate.toLocaleDateString("fr-FR", {
           year: "numeric", month: "long", day:"numeric"
@@ -90,12 +90,12 @@ function Form({changeType, setNumber, setName,
         const info = {
           id: crypto.randomUUID(),
           type: state.type,
-          name: state.name,
+          fullName: state.fullName,
           date: currentDay.toLocaleDateString("fr-FR", {
             year: "numeric", month: "long", day: "numeric"
           }),
           number :parseInt(state.number) + i,
-          UnitPrice : state.UnitPrice,
+          price : state.price,
           toPay: totalPrice - state.payedSum,
           phoneNumber: state.phoneNumber
         }
@@ -115,10 +115,10 @@ function Form({changeType, setNumber, setName,
   useEffect(() => {
     if (currentClient) {
       changeType(currentClient.type)
-      setName(currentClient.name);
+      setName(currentClient.fullName);
       setNumber(currentClient.number);
-      setUnitPrice(currentClient.UnitPrice);
-      setPayedSum(currentClient.UnitPrice - currentClient.toPay);
+      setPrice(currentClient.price);
+      setPayedSum(currentClient.price - currentClient.toPay);
     }
   }, [currentClient]);
 
@@ -131,11 +131,11 @@ function Form({changeType, setNumber, setName,
       return client.id === currentClient.id ? 
       {...client, 
       type: state.type,
-      name : state.name,
+      fullName : state.fullName,
       number: state.number,
-      UnitPrice: state.UnitPrice,
+      price: state.price,
       payedSum: state.payedSum,
-      toPay: state.UnitPrice - state.payedSum,
+      toPay: state.price - state.payedSum,
       phoneNumber: state.phoneNumber
       }
       : client;
@@ -165,6 +165,64 @@ function Form({changeType, setNumber, setName,
     setNumber(latestNumber + 1);
   }
 
+  function calculateEndDate(type, currentDay = new Date()) {
+    let daysLeft;
+    if (type === "Anapath") {
+      daysLeft = 12;
+    } else if (type === "Cytoponction") {
+      daysLeft = 1;
+    } else if (type === "F.C.V") {
+      daysLeft = 5
+    }
+
+    /* create copy to calculate new date */
+    const endDate = new Date(currentDay)
+    endDate.setDate(endDate.getDate() + daysLeft);
+    const dayOfWeek = endDate.getDay();
+   
+    /* if the resulting day if friday skip to saturday */
+    if (dayOfWeek === 5) {
+      endDate.setDate(endDate.getDate() +1)
+    }
+    return endDate;
+  }
+
+  const addClient = async() => {
+ 
+    if (!isFormValid()) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
+
+    const {
+      type, number, fullName, price,
+      payedSum, phoneNumber} = state;
+
+    const endDateObj = calculateEndDate(type);
+
+    const clientData = {
+      type,
+      number, 
+      fullName,
+      price,
+      payed: payedSum,
+      phoneNumber,
+      endDate: endDateObj
+    }
+
+    try {
+      const res = await fetch('http://localhost:8000/clients/add', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(clientData)
+      })
+
+      resetState();
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
 return (
   <form className={`${darkMode ? "text-white form_dark" : "text-black form"} 
     px-4 py-8 rounded-md sm:w-full md:w-[30%] ${isEdit ? editFormClass : ""}`}
@@ -179,6 +237,7 @@ return (
         className={`${darkMode ? "bg-black" : "bg-white"} rounded-lg`}
         value={state.type}
         disabled={isEdit}
+        name="type"
       >
         <option value="">select</option>
         <option value="Anapath">Anapath</option>
@@ -209,6 +268,7 @@ return (
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
         type="number" 
         id="number"
+        name="number"
         value={state.number} min="0"/>
     </div>
     {isMulti && !isEdit &&
@@ -226,27 +286,29 @@ return (
       </div>
       }
     <div className="flex gap-4 items-center">
-      <label htmlFor="name" className="w-[40%] sm:w-[27%] font-bold">
+      <label htmlFor="fullName" className="w-[40%] sm:w-[27%] font-bold">
         Nom :
       </label>
       <input
         onChange={(e) => setName(e.target.value)} 
         className={`w-[50%] sm:w-[40%]  p-2 rounded-lg border-grey-300 focus:outline-none
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
-        type="text" id="name" autoComplete="off" value={state.name}
+        type="text" id="fullName" autoComplete="off" value={state.fullName} name="fullName"
       />
     </div>
     <div className="flex gap-4  items-center mt-4">
-      <label htmlFor="UnitPrice" className="w-[40%] sm:w-[27%] font-bold">
+      <label htmlFor="price" className="w-[40%] sm:w-[27%] font-bold">
         Prix Total :
       </label>
       {!isMulti && 
         <select  
-        onChange = {(e) => setUnitPrice(parseFloat(e.target.value) || 0)}
-        id={`${isMulti ? "totalPrice" : "UnitPrice"}`}
+        onChange = {(e) => setPrice(parseFloat(e.target.value) || 0)}
+        id={`${isMulti ? "totalPrice" : "price"}`}
         className={`${darkMode ? "bg-black" : "bg-white"} p-2 rounded-lg
         ${isEdit ? `w-[24%]` : "sm:w-[27%]"}`}
-        value={state.UnitPrice}>
+        value={state.price}
+        name="price"
+        >
           <option value="1000">1000</option>
           <option value="1500">1500</option>
           <option value="2000">2000</option>
@@ -276,6 +338,7 @@ return (
           focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}
           ${isEdit ? `w-[24%]` : "w-[24%] sm:w-[27%]"}`}
         type="number" min="0" id="payedSum" value={state.payedSum}
+        name="payed"
       />
     </div>
     {isEdit && 
@@ -288,6 +351,7 @@ return (
           className={`p-2 rounded border-grey-300 focus:outline-none w-[34%]
             focus:ring-2 focus:ring-blue-400 ${darkMode ? "bg-black" : "bg-white"}`}
           type="tel" min="0" id="phoneNumber" value={state.phoneNumber} autoComplete="off"
+          name="phone_number"
         />
       </div>
     }
@@ -308,7 +372,7 @@ return (
       </button>
       <button
         type="button"
-        onClick={() => isEdit ? updateInfo() : saveInfo()}
+        onClick={() => isEdit ? updateInfo() : addClient()}
         className={buttonStyle}>
         Save
       </button>
