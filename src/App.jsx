@@ -4,9 +4,9 @@ import Main from "./components/Main";
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NotFound from './components/NotFound';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import {UserContext} from "./context/UserContext";
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Login from "./components/Login";
 
 const ClientTable = lazy(() => import('./components/ClientTable'));

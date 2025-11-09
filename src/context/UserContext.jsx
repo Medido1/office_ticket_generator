@@ -51,7 +51,7 @@ export const UserProvider = ({children}) => {
       console.error(error);
       setMessage("Something went wrong");
     }
-  }
+  };
 
   return (
     <UserContext.Provider value={{user, setUser, handleLogOut}}>

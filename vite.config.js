@@ -12,7 +12,8 @@ export default defineConfig({
       globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
       includeAssets: 
       ['microscope.png', 'delete.png',
-        'editer.png', 'telephone.png' ],
+        'editer.png', 'telephone.png', 
+        'settings.png', 'logout.png'],
       manifest: {
         name: "Ticket Generator",
         start_url: '/',
