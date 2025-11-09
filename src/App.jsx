@@ -4,19 +4,16 @@ import Main from "./components/Main";
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NotFound from './components/NotFound';
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense} from 'react';
 import {UserContext} from "./context/UserContext";
 import { useContext } from 'react';
 import Login from "./components/Login";
+import ProtectedRoute from './components/ProtectedRoute';
 
 const ClientTable = lazy(() => import('./components/ClientTable'));
 
 function App() {
   const {user} = useContext(UserContext);
-
-  useEffect(() => {
-    console.log(user)
-  });
 
   return (
     <Router>
@@ -27,9 +24,22 @@ function App() {
             <Route path="/" element={
               user ? <Main /> : <Login />
               }/>
-            <Route path='/anapath' element={<ClientTable type="Anapath"/>}/>
-            <Route path='/cytoponction' element={<ClientTable type="Cytoponction"/>}/>
-            <Route path='/fcv' element={<ClientTable type="F.C.V"/>}/>
+            <Route path='/anapath' element={
+              <ProtectedRoute>
+                <ClientTable type="Anapath"/>
+              </ProtectedRoute>
+              }
+            />
+            <Route path='/cytoponction' element={
+              <ProtectedRoute>
+                <ClientTable type="Cytoponction"/>
+              </ProtectedRoute>
+            }/>
+            <Route path='/fcv' element={
+              <ProtectedRoute>
+                <ClientTable type="F.C.V"/>
+              </ProtectedRoute>
+            }/>
             <Route path='*' element={<NotFound />}/>
           </Routes>
         </Suspense>
