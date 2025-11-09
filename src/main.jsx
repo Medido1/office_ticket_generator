@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import {GlobalProvider} from "./context/GlobalContext.jsx";
 import {UserProvider} from "./context/UserContext.jsx";
 import { InterfaceProvider } from './context/InterfaceContext.jsx';
+import { DataProvider } from './context/DataContext.jsx';
 import App from './App.jsx'
 import { registerSW } from 'virtual:pwa-register';
 
@@ -17,7 +18,9 @@ createRoot(document.getElementById('root')).render(
     <GlobalProvider>
       <UserProvider>
         <InterfaceProvider>
-          <App />
+          <DataProvider>
+            <App />
+          </DataProvider>
         </InterfaceProvider>
       </UserProvider>
     </GlobalProvider>

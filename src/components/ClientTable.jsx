@@ -69,6 +69,10 @@ function ClientTable({ type }) {
   const totalPages = Math.ceil(displayData.length / itemsPerPage);
 
   useEffect(() => {
+    
+  })
+
+  useEffect(() => {
     let data = [];
     try {
       // Attempt to get the raw string from localStorage using the key "archiveData"

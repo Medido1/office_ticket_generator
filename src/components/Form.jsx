@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useContext } from "react";
 import {GlobalContext} from "../context/GlobalContext";
+import { DataContext } from "../context/DataContext";
 import safeParse from "../utilities/SafeParse";
 
 function Form({changeType, setNumber, setName,
@@ -12,6 +13,8 @@ function Form({changeType, setNumber, setName,
     totalPrice, setTotalPrice
   } = useContext(GlobalContext)
 
+  const {anapathData, cytoponctionData, fcvData, refreshData} = useContext(DataContext);
+ 
   const editFormClass = `fixed max-w-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`
 
   /* last number in multiple entries */
@@ -154,14 +157,29 @@ function Form({changeType, setNumber, setName,
 
   /* get last entry number and update form number to next entery */
   function GetNextEnteryNumber(e) {
-    changeType(e.target.value);
-    const filterd = data.filter(client => client.type === e.target.value);
+    const currentType = e.target.value;
+    changeType(currentType);
     let latestNumber;
-    if (filterd.length === 0) {
-      latestNumber = 0;
-    } else {
-      latestNumber = Math.max(...filterd.map(item => (item.number)));
-    }
+
+    if (currentType === "Anapath") {
+      if (anapathData.length === 0) {
+        latestNumber = 0;
+      } else {
+        latestNumber = Math.max(...anapathData.map(client => (client.number)))
+      }
+    } else if (currentType === "Cytoponction") {
+      if (cytoponctionData.length === 0) {
+        latestNumber = 0;
+      } else {
+        latestNumber = Math.max(...cytoponctionData.map(client => (client.number)))
+      }
+    } else if (currentType === "F.C.V") {
+      if (fcvData.length === 0) {
+        latestNumber = 0
+      } else {
+        latestNumber = Math.max(...fcvData.map(client => client.number))
+      }
+    };
     setNumber(latestNumber + 1);
   }
 
@@ -216,7 +234,9 @@ function Form({changeType, setNumber, setName,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(clientData)
       })
-
+      if (res.ok) {
+        refreshData();
+      }
       resetState();
     } catch (error) {
       console.error(error)
