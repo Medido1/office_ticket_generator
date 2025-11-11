@@ -8,44 +8,28 @@ export const DataProvider = ({children}) => {
   const [fcvData, setFCVData] = useState([]);
   const [refresh, setRefresh] = useState(0); // trigger for refetch
 
-  useEffect(() => {
-    const fetchAnapath = async() => {
-      try {
-        const res = await fetch ("http://localhost:8000/clients/Anapath");
-        const data = await res.json();
-        setAnapathData(data.tests);
-      } catch (error) {
-        console.error(error)
-      }
-    }
+  const fetchData = async (endpoint,token, setter) => {
+    try {
+      const res = await fetch(`http://localhost:8000/clients/${endpoint}`,{
+        headers: { Authorization: `Bearer ${token}` },
+      })
 
-    const fetchCytoponction = async() => {
-      try {
-        const res = await fetch ("http://localhost:8000/clients/Cytoponction");
-        const data = await res.json();
-        setCytoponctionData(data.tests);
-      } catch (error) {
-        console.error(error)
-      }
+      if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
+      const data = await res.json();
+      setter(data.tests);
+    } catch (error) {
+      console.error(error)
     }
-
-    const fetchFcvData = async() => {
-      try {
-        const res = await fetch ("http://localhost:8000/clients/F.C.V");
-        const data = await res.json();
-        setFCVData(data.tests);
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    fetchAnapath()
-    fetchCytoponction()
-    fetchFcvData()
-  }, [refresh])
+  }
 
   useEffect(() => {
-    
+    const token = localStorage.getItem('authToken');
+    if (!token) return;
+    if (token) {
+      fetchData("Anapath", token, setAnapathData);
+      fetchData("Cytoponction",token, setCytoponctionData);
+      fetchData("F.C.V",token, setFCVData);
+    }  
   }, [refresh])
 
   const refreshData = () => setRefresh(prev => prev + 1);

@@ -1,12 +1,14 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { DataContext } from "../context/DataContext";
 
 function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const {setUser} = useContext(UserContext);
+  const {refreshData} = useContext(DataContext);
   const navigate = useNavigate("");
 
   const handleLogin = async(e) => {
@@ -24,6 +26,7 @@ function LogIn() {
       if (data.token) {
         localStorage.setItem('authToken', data.token);
         setUser(data.user);
+        refreshData();
       };
       if (!res.ok) {
         setMessage(data.message || "Error Login in");
