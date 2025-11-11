@@ -5,7 +5,7 @@ import logoutIcon from '/logout.png'
 import { motion, AnimatePresence } from "framer-motion";
 
 function SettingsModal() {
-  const {showSettings} = useContext(InterfaceContext);
+  const {showSettings, setShowSettings} = useContext(InterfaceContext);
   const {handleLogOut} = useContext(UserContext);
 
   const modalAnimation = {
@@ -24,7 +24,10 @@ function SettingsModal() {
           <div className="flex gap-2">
             <img src={logoutIcon} alt="logout" className="h-6" />
             <button 
-            onClick={handleLogOut}
+            onClick={() => {
+              handleLogOut()
+              setShowSettings(false)
+            }}
             className='hover:border-b-2 cursor-pointer'>
               Log out
             </button>
