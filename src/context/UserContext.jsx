@@ -3,7 +3,11 @@ import { createContext, useState, useEffect } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({children}) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -46,6 +50,7 @@ export const UserProvider = ({children}) => {
         setMessage("Logged out!");
         setUser(null);
         localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
       }
     } catch (error) {
       console.error(error);

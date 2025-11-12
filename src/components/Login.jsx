@@ -25,6 +25,7 @@ function LogIn() {
 
       if (data.token) {
         localStorage.setItem('authToken', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
         setUser(data.user);
         refreshData();
       };
