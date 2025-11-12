@@ -3,11 +3,12 @@ import { GlobalContext } from "../context/GlobalContext";
 import { DataContext } from "../context/DataContext";
 import { deleteClient } from "../api/clientsApi";
 import deleteIcon from "/delete.png";
+import editIcon from "/editer.png"
 
 function ClientTableMain({data}) {
   const {isMobile, darkMode} = useContext(GlobalContext);
   const {refreshData} = useContext(DataContext);
-  const {message, setMessage} = useState("");
+  const [message, setMessage] = useState("");
 
   // update client info
   const [showForm, setShowForm] = useState(false);
@@ -19,15 +20,12 @@ function ClientTableMain({data}) {
     setShowForm(true);
   };
 
-  
-
-
   useEffect(() => {
     console.log(data[0])
   })
   return (
     <main className="bg-gray-200 p-4">
-      {isMobile && (
+      {!isMobile && (
         <table className={`min-w-full border-2
           ${
             darkMode
@@ -46,9 +44,9 @@ function ClientTableMain({data}) {
             </tr>
           </thead>
           <tbody>
-            {data.map((client) => {
+            {data.map((client) => (
               <tr key={client.id}>
-                <td className="w-[20%] p-2 border text-center">
+                <td className="w-[18%] p-2 border text-center">
                   <div className="flex flex-col sm:flex-row gap-4 items-center">
                     <button
                       onClick={() => 
@@ -62,15 +60,35 @@ function ClientTableMain({data}) {
                     </button>
                     <button
                       onClick={() => {
-                        editClient(client.id)
+                        getUpdateClientForm(client.id)
                       }}
                     >
-
+                      <img 
+                        className="w-5"
+                        src={editIcon} 
+                        alt="edit icon"
+                      />
                     </button>
+                    <p className="order-first sm:order-none">
+                      {client.createdAt.split("T")[0]}
+                    </p>
                   </div>
                 </td>
+                <td className="p-2 border text-center text-sm sm:w-[7%] sm:text-md">
+                  {client.number}
+                </td>
+                <td className="p-2 border text-center">
+                  <label className="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      /* checked={client.checked}
+                      onChange={() => checkAsCompleted(client.id)} */
+                    />
+                    <span className="checkmark"></span>
+                    </label>
+                </td>
               </tr>
-            })}
+            ))}
           </tbody>
            
         </table>
