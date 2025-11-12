@@ -6,14 +6,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import { lazy, Suspense} from 'react';
 import {UserContext} from "./context/UserContext";
+import { DataContext } from './context/DataContext';
 import { useContext } from 'react';
 import Login from "./components/Login";
 import ProtectedRoute from './components/ProtectedRoute';
 
-const ClientTable = lazy(() => import('./components/ClientTable'));
+const ClientTableNew = lazy(() => import('./components/ClientTableNew'));
 
 function App() {
   const {user} = useContext(UserContext);
+  const {anapathData, cytoponctionData, fcvData} = useContext(DataContext);
 
   return (
     <Router>
@@ -26,18 +28,18 @@ function App() {
               }/>
             <Route path='/anapath' element={
               <ProtectedRoute>
-                <ClientTable type="Anapath"/>
+                <ClientTableNew type="Anapath" data={anapathData}/>
               </ProtectedRoute>
               }
             />
             <Route path='/cytoponction' element={
               <ProtectedRoute>
-                <ClientTable type="Cytoponction"/>
+                <ClientTableNew type="Cytoponction" data={cytoponctionData}/>
               </ProtectedRoute>
             }/>
             <Route path='/fcv' element={
               <ProtectedRoute>
-                <ClientTable type="F.C.V"/>
+                <ClientTableNew type="F.C.V" data={fcvData}/>
               </ProtectedRoute>
             }/>
             <Route path='*' element={<NotFound />}/>

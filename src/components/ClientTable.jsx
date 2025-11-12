@@ -9,7 +9,7 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import MobileCard from "./MobileCard";
 
-function ClientTable({ type }) {
+function ClientTable({ type, data }) {
   const {
     state,
     changeType,
@@ -68,9 +68,6 @@ function ClientTable({ type }) {
 
   const totalPages = Math.ceil(displayData.length / itemsPerPage);
 
-  useEffect(() => {
-    
-  })
 
   useEffect(() => {
     let data = [];
@@ -262,7 +259,7 @@ function ClientTable({ type }) {
             <tbody>
               {currentItems.map((client) => (
                 <tr key={client.id}>
-                  <td className="w-[20%] p-2 border text-center ">
+                  <td className="w-[20%] p-2 border text-center">
                     <div className="flex flex-col sm:flex-row gap-4 items-center">
                       <button
                         onClick={() => deleteClient(client.id)}
