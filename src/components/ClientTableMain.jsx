@@ -8,7 +8,20 @@ function ClientTableMain({data}) {
   const {isMobile, darkMode} = useContext(GlobalContext);
   const {refreshData} = useContext(DataContext);
   const {message, setMessage} = useState("");
+
+  // update client info
+  const [showForm, setShowForm] = useState(false);
+  const [currentClient, setCurrentClient] = useState({});
+
+  const getUpdateClientForm= (id) => {
+    const targetClient = data.find((client) => client.id === id);
+    setCurrentClient(targetClient);
+    setShowForm(true);
+  };
+
   
+
+
   useEffect(() => {
     console.log(data[0])
   })
@@ -46,6 +59,13 @@ function ClientTableMain({data}) {
                           src={deleteIcon}
                           alt="delete icon"
                         />
+                    </button>
+                    <button
+                      onClick={() => {
+                        editClient(client.id)
+                      }}
+                    >
+
                     </button>
                   </div>
                 </td>
