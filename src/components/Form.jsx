@@ -206,7 +206,6 @@ function Form({changeType, setNumber, setName,
   }
 
   const addClient = async() => {
- 
     if (!isFormValid()) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
@@ -217,6 +216,7 @@ function Form({changeType, setNumber, setName,
       payedSum, phoneNumber} = state;
 
     const endDateObj = calculateEndDate(type);
+    const token = localStorage.getItem('authToken');
 
     const clientData = {
       type,
@@ -231,7 +231,10 @@ function Form({changeType, setNumber, setName,
     try {
       const res = await fetch('http://localhost:8000/clients/add', {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify(clientData)
       })
       if (res.ok) {

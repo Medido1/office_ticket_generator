@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { DataContext } from "../context/DataContext";
-import { deleteClient } from "../api/clientsApi";
+import { deleteClient, checkAsCompleted } from "../api/clientsApi";
 import deleteIcon from "/delete.png";
 import editIcon from "/editer.png"
 
@@ -81,8 +81,8 @@ function ClientTableMain({data}) {
                   <label className="custom-checkbox">
                     <input
                       type="checkbox"
-                      /* checked={client.checked}
-                      onChange={() => checkAsCompleted(client.id)} */
+                      checked={client.sortie}
+                      onChange={() => checkAsCompleted(client.id, setMessage, refreshData, !client.sortie)}
                     />
                     <span className="checkmark"></span>
                     </label>
