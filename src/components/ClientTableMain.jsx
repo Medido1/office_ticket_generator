@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { DataContext } from "../context/DataContext";
 import { deleteClient, checkAsCompleted } from "../api/clientsApi";
@@ -20,9 +20,6 @@ function ClientTableMain({data}) {
     setShowForm(true);
   };
 
-  useEffect(() => {
-    console.log(data[0])
-  })
   return (
     <main className="bg-gray-200 p-4">
       {!isMobile && (
@@ -87,10 +84,22 @@ function ClientTableMain({data}) {
                     <span className="checkmark"></span>
                     </label>
                 </td>
+                <td className="p-2 border text-center">{client.fullName}</td>
+                <td className="p-2 border text-center w-[12%]">
+                  {client.price}DA
+                </td>
+                <td
+                  className={`${
+                    client.toPay === 0 ? "bg-green-400" : "bg-red-400"
+                  }
+                  p-2 border text-center w-[12%]`}
+                >
+                  {client.remaining}DA
+                </td>
+                <td className="p-2 border">{client.phoneNumber}</td>
               </tr>
             ))}
           </tbody>
-           
         </table>
       )}
     </main>

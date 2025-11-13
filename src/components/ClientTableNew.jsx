@@ -7,7 +7,6 @@ import { GlobalContext } from "../context/GlobalContext";
 import Ticket from "./Ticket";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import MobileCard from "./MobileCard";
 import ClientTableHeader from './ClientTableHeader';
 import ClientTableMain from "./ClientTableMain";
 
@@ -41,6 +40,23 @@ function ClientTableNew({type, data}) {
   /* to navigate bewteen different pages */
   const location = useLocation();
 
+  /* add pagination feature */
+  const itemsPerPage = 25;
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [clientsToDisplay, setClientsToDisplay] = useState([]);
+
+  useEffect(() => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setClientsToDisplay(data.slice(indexOfFirstItem, indexOfLastItem))
+  }, [data, currentPage])
+
+  useEffect(() => {
+    const lastPage = Math.ceil(data.length / itemsPerPage);
+    setCurrentPage(lastPage)
+  }, [])
+
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [displayData, setDisplayData] = useState([]);
@@ -53,9 +69,31 @@ function ClientTableNew({type, data}) {
         setSearchTerm = {setSearchTerm}
       />
       <ClientTableMain 
-        data={data}
-        
+        data={clientsToDisplay}
       />
+      <div className="mt-4 relative flex justify-center items-center gap-2 pb-12 sm:pb-2">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50
+          cursor-pointer"
+        >
+          Previous
+        </button>
+        <span className="px-2 py-2">
+          {currentPage} / {totalPages}
+        </span>
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-blue-300 rounded hover:bg-blue-400 disabled:opacity-50
+            cursor-pointer"
+        >
+          Next
+        </button>
+      </div>
     </div>
   )
 }
