@@ -135,15 +135,13 @@ function ClientTableNew({type, data}) {
         >
           Next
         </button>
-        <div className="absolute right-20 sm:right-0 bottom-0 flex items-center gap-4">
         <button
           onClick={exportFullDataToExcel}
-          className=" bg-blue-300 rounded px-4 py-2
+          className=" bg-blue-300 rounded px-4 py-2 absolute right-10
             hover:bg-blue-400 disabled:opacity-50 cursor-pointer"
-          >
-            Export To Excel
+        >
+          Export To Excel
         </button>
-        </div>
       </div>
     </div>
   )
