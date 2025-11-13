@@ -72,7 +72,36 @@ function ClientTableNew({type, data}) {
       setClientsToDisplay(searchData);
       setCurrentPage(1);
     }
-  }, [searchTerm])
+  }, [searchTerm]);
+
+  /* save info to excel document */
+  function exportFullDataToExcel() {
+    if (!data || data.length === 0) {
+      alert("No data to export.");
+      return;
+    }
+  
+    // Optional: remove unnecessary fields (like internal IDs)
+    const cleanData = data.map(({ id, ...rest }) => rest);
+  
+    const worksheet = XLSX.utils.json_to_sheet(cleanData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "FullData");
+  
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+  
+    const fileData = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
+    });
+  
+    saveAs(
+      fileData,
+      `archive_fullData_${new Date().toISOString().slice(0, 10)}.xlsx`
+    );
+  };
 
   return (
     <div className="flex-grow">
@@ -106,6 +135,15 @@ function ClientTableNew({type, data}) {
         >
           Next
         </button>
+        <div className="absolute right-20 sm:right-0 bottom-0 flex items-center gap-4">
+        <button
+          onClick={exportFullDataToExcel}
+          className=" bg-blue-300 rounded px-4 py-2
+            hover:bg-blue-400 disabled:opacity-50 cursor-pointer"
+          >
+            Export To Excel
+        </button>
+        </div>
       </div>
     </div>
   )
