@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { DataContext } from "../context/DataContext";
 import { deleteClient, checkAsCompleted } from "../api/clientsApi";

@@ -45,21 +45,34 @@ function ClientTableNew({type, data}) {
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
   const [clientsToDisplay, setClientsToDisplay] = useState([]);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
 
   useEffect(() => {
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     setClientsToDisplay(data.slice(indexOfFirstItem, indexOfLastItem))
   }, [data, currentPage])
 
+  /* display last page on mount */
   useEffect(() => {
     const lastPage = Math.ceil(data.length / itemsPerPage);
     setCurrentPage(lastPage)
   }, [])
 
-  const [filteredData, setFilteredData] = useState([]);
+  /* Serch logic */
   const [searchTerm, setSearchTerm] = useState("");
-  const [displayData, setDisplayData] = useState([]);
+
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setClientsToDisplay(data.slice(indexOfFirstItem, indexOfLastItem));
+    } else {
+      const searchData = data.filter((client) => 
+        client.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      setClientsToDisplay(searchData);
+      setCurrentPage(1);
+    }
+  }, [searchTerm])
 
   return (
     <div className="flex-grow">
